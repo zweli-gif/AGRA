@@ -1,1171 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>igaqa — Dom &amp; Sab</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AFSTI | Portfolio Home</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+:root{
+  --agra:#00A67E;        /* AGRA green accent */
+  --agra2:#006B54;
+  --bg0:#070A0F;
+  --bg1:#0B111A;
+  --card:#0F1724;
+  --card2:#101B2A;
+  --text:#EAF2FF;
+  --muted:#A9B6C8;
+  --line:#203047;
+  --gold:#F7B500;
+  --bad:#FF5D5D;
+  --amber:#F57C00;
+  --ok:#67D37A;
+  --shadow: 0 18px 45px rgba(0,0,0,.45);
+  --radius:18px;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
 }
-
-html {
-  -webkit-text-size-adjust: 100%;
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:var(--sans);
+  background: radial-gradient(1200px 520px at 15% -10%, rgba(0,166,126,.18), rgba(0,0,0,0)),
+              radial-gradient(900px 520px at 85% -10%, rgba(247,181,0,.12), rgba(0,0,0,0)),
+              linear-gradient(180deg,var(--bg0),var(--bg1));
+  color:var(--text);
 }
-
-body {
-  background: #1a1714;
-  color: #e8e0d6;
-  font-family: 'Source Serif 4', Georgia, serif;
-  font-weight: 400;
-  font-size: 15.5px;
-  line-height: 1.7;
-  min-height: 100vh;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
+a{color:#B9F6E8;text-decoration:none}
+a:hover{text-decoration:underline}
+.header{
+  padding:26px 28px 16px;
+  border-bottom:1px solid var(--line);
+  background: linear-gradient(180deg, rgba(16,27,42,.92), rgba(11,17,26,.55));
+  position:sticky; top:0; z-index:50;
+  backdrop-filter: blur(6px);
 }
-
-.container {
-  max-width: 640px;
-  margin: 0 auto;
-  padding: 48px 24px 80px;
+.title-row{display:flex;justify-content:space-between;gap:16px;align-items:flex-end;flex-wrap:wrap}
+h1{margin:0;font-size:20px;letter-spacing:.2px}
+.subtitle{margin-top:6px;color:var(--muted);font-size:12.5px;max-width:1100px;line-height:1.35}
+.tag{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 12px;border:1px solid rgba(0,166,126,.35);
+  background:rgba(0,166,126,.10);border-radius:999px;
+  font-size:11px;color:#DFFEF7; white-space:nowrap
 }
-
-/* ── Sync indicator ── */
-
-.sync-indicator {
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #8a7e72;
-  opacity: 0.7;
-  z-index: 100;
-  transition: opacity 0.3s;
+.container{max-width:1240px;margin:0 auto;padding:18px 28px 40px}
+.tabs{
+  display:flex;gap:10px;flex-wrap:wrap;margin-top:12px
 }
-
-.sync-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  transition: background 0.3s;
+.tab{
+  cursor:pointer;user-select:none;
+  padding:9px 12px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(255,255,255,.02);
+  color:var(--muted);font-size:12.5px;font-weight:650
 }
-
-.sync-dot.synced { background: #2d6a4f; }
-.sync-dot.syncing { background: #b5651d; animation: pulse 1.2s infinite; }
-.sync-dot.offline { background: #8a7e72; }
-.sync-dot.error { background: #9d0208; }
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+.tab.active{
+  border-color:rgba(0,166,126,.42);
+  background:rgba(0,166,126,.14);
+  color:#EAFFFA
 }
-
-/* ── Setup banner ── */
-
-.setup-banner {
-  background: rgba(45, 106, 79, 0.1);
-  border: 1px solid rgba(45, 106, 79, 0.25);
-  border-radius: 8px;
-  padding: 16px 20px;
-  margin-bottom: 32px;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  line-height: 1.7;
-  color: #b5a898;
+.panel{
+  background:linear-gradient(180deg, rgba(15,23,36,.92), rgba(16,27,42,.80));
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:16px;
 }
-
-.setup-banner strong {
-  color: #e8e0d6;
-  font-weight: 500;
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.col-12{grid-column:span 12}
+.col-8{grid-column:span 8}
+.col-6{grid-column:span 6}
+.col-4{grid-column:span 4}
+@media (max-width:1000px){.col-8,.col-6,.col-4{grid-column:span 12}}
+.h2{
+  display:flex;align-items:center;gap:10px;margin:0 0 10px;
+  font-size:14px;letter-spacing:.2px
 }
-
-.setup-banner code {
-  background: rgba(186, 178, 166, 0.1);
-  padding: 1px 5px;
-  border-radius: 3px;
-  font-size: 10px;
+.badge{
+  font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;
+  padding:4px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)
 }
-
-/* ── Header ── */
-
-header {
-  text-align: center;
-  margin-bottom: 56px;
+.badge.ok{border-color:rgba(103,211,122,.42);background:rgba(103,211,122,.08);color:#DFFFE7}
+.badge.warn{border-color:rgba(247,181,0,.42);background:rgba(247,181,0,.08);color:#FFE7A6}
+.badge.bad{border-color:rgba(255,93,93,.42);background:rgba(255,93,93,.08);color:#FFD0D0}
+.badge.neu{border-color:rgba(120,160,255,.42);background:rgba(120,160,255,.08);color:#D6E4FF}
+p{margin:8px 0;color:var(--muted);line-height:1.45;font-size:12.8px}
+ul{margin:8px 0 0 18px;color:var(--muted);font-size:12.8px;line-height:1.45}
+li{margin:4px 0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media (max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{
+  border:1px solid var(--line);border-radius:14px;padding:12px;background:rgba(0,0,0,.18)
 }
-
-.est {
-  font-family: 'DM Mono', monospace;
-  font-weight: 500;
-  font-size: 10px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: #8a7e72;
-  margin-bottom: 12px;
+.kpi .l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.kpi .v{margin-top:6px;font-size:18px;font-weight:800;color:#EAFFFA}
+.kpi .n{margin-top:6px;font-size:11px;color:var(--muted);line-height:1.35}
+.hr{height:1px;background:var(--line);margin:14px 0}
+.small{font-size:11.5px}
+.table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:10px}
+.table th,.table td{padding:9px 10px;border-bottom:1px solid var(--line);font-size:12px;vertical-align:top}
+.table th{background:rgba(0,166,126,.10);color:#EAFFFA;text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.4px}
+.table td{background:rgba(0,0,0,.16);color:var(--muted)}
+.table tr:last-child td{border-bottom:none}
+.num{font-variant-numeric:tabular-nums;font-family:var(--mono);color:#EAFFFA;font-weight:750}
+.callout{
+  border:1px solid var(--line);border-left:4px solid var(--agra);
+  background:rgba(0,166,126,.06);
+  border-radius:14px;padding:12px;margin-top:10px
 }
-
-h1 {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-weight: 300;
-  font-style: italic;
-  font-size: clamp(52px, 10vw, 72px);
-  color: #f0e8de;
-  line-height: 1.05;
-  margin-bottom: 8px;
-  letter-spacing: -0.01em;
-}
-
-.subtitle {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-weight: 300;
-  font-size: 18px;
-  color: #9a9089;
-  margin-bottom: 28px;
-}
-
-.intro {
-  font-family: 'Source Serif 4', Georgia, serif;
-  font-style: italic;
-  font-size: 15px;
-  color: #b5a898;
-  line-height: 1.8;
-  max-width: 520px;
-  margin: 0 auto;
-}
-
-/* ── Legend ── */
-
-.legend-wrapper {
-  margin-bottom: 40px;
-}
-
-.legend-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: none;
-  border: none;
-  color: #8a7e72;
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  cursor: pointer;
-  padding: 8px 16px;
-  margin: 0 auto;
-  transition: color 0.3s;
-}
-
-.legend-toggle:hover {
-  color: #b5a898;
-}
-
-.legend-toggle .arrow {
-  display: inline-block;
-  transition: transform 0.3s;
-  font-size: 8px;
-}
-
-.legend-toggle.open .arrow {
-  transform: rotate(180deg);
-}
-
-.legend-box {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease, opacity 0.3s ease;
-  opacity: 0;
-}
-
-.legend-box.open {
-  max-height: 200px;
-  opacity: 1;
-}
-
-.legend-inner {
-  background: rgba(186, 178, 166, 0.06);
-  border: 1px solid rgba(186, 178, 166, 0.1);
-  border-radius: 8px;
-  padding: 20px 24px;
-  margin-top: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: #9a9089;
-  letter-spacing: 0.05em;
-}
-
-.legend-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.legend-dot.yes { background: #2d6a4f; }
-.legend-dot.no { background: #9d0208; }
-.legend-dot.hold { background: #b5651d; }
-
-/* ── Progress ── */
-
-.progress {
-  display: flex;
-  justify-content: center;
-  gap: 32px;
-  margin-bottom: 48px;
-  flex-wrap: wrap;
-}
-
-.progress-item {
-  text-align: center;
-}
-
-.progress-number {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-weight: 300;
-  font-size: 36px;
-  color: #f0e8de;
-  line-height: 1.1;
-}
-
-.progress-label {
-  font-family: 'DM Mono', monospace;
-  font-weight: 400;
-  font-size: 9px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #8a7e72;
-  margin-top: 4px;
-}
-
-/* ── Pact categories ── */
-
-.category {
-  margin-bottom: 40px;
-}
-
-.category-header {
-  font-family: 'DM Mono', monospace;
-  font-weight: 500;
-  font-size: 10px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: #8a7e72;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(186, 178, 166, 0.15);
-  margin-bottom: 16px;
-}
-
-/* ── Pact items ── */
-
-.pact-item {
-  background: rgba(186, 178, 166, 0.06);
-  border: 1px solid rgba(186, 178, 166, 0.1);
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 12px;
-  transition: border-color 0.3s;
-}
-
-.pact-item:hover {
-  border-color: rgba(186, 178, 166, 0.2);
-}
-
-.pact-text {
-  font-family: 'Source Serif 4', Georgia, serif;
-  font-size: 15.5px;
-  line-height: 1.7;
-  color: #e8e0d6;
-  margin-bottom: 16px;
-}
-
-.votes-section {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.vote-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.vote-name {
-  font-family: 'DM Mono', monospace;
-  font-weight: 500;
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #9a9089;
-  width: 36px;
-  flex-shrink: 0;
-}
-
-.vote-divider {
-  width: 1px;
-  height: 36px;
-  background: rgba(186, 178, 166, 0.15);
-  flex-shrink: 0;
-}
-
-.vote-buttons {
-  display: flex;
-  gap: 8px;
-}
-
-.vote-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(186, 178, 166, 0.2);
-  background: transparent;
-  color: #8a7e72;
-  font-family: 'DM Mono', monospace;
-  font-weight: 500;
-  font-size: 11px;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-.vote-btn:hover {
-  border-color: rgba(186, 178, 166, 0.4);
-  color: #e8e0d6;
-}
-
-.vote-btn.active-y {
-  background: #2d6a4f;
-  border-color: #2d6a4f;
-  color: #f0e8de;
-}
-
-.vote-btn.active-n {
-  background: #9d0208;
-  border-color: #9d0208;
-  color: #f0e8de;
-}
-
-.vote-btn.active-h {
-  background: #b5651d;
-  border-color: #b5651d;
-  color: #f0e8de;
-}
-
-/* ── Divider ── */
-
-.section-divider {
-  height: 1px;
-  background: rgba(186, 178, 166, 0.1);
-  margin: 48px 0;
-}
-
-/* ── Add form ── */
-
-.add-section h2 {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-weight: 300;
-  font-style: italic;
-  font-size: 28px;
-  color: #f0e8de;
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-.add-form {
-  background: rgba(186, 178, 166, 0.06);
-  border: 1px solid rgba(186, 178, 166, 0.1);
-  border-radius: 8px;
-  padding: 24px;
-}
-
-.form-group {
-  margin-bottom: 16px;
-}
-
-.form-label {
-  display: block;
-  font-family: 'DM Mono', monospace;
-  font-weight: 500;
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #8a7e72;
-  margin-bottom: 8px;
-}
-
-.form-textarea {
-  width: 100%;
-  min-height: 80px;
-  background: rgba(186, 178, 166, 0.04);
-  border: 1px solid rgba(186, 178, 166, 0.15);
-  border-radius: 6px;
-  color: #e8e0d6;
-  font-family: 'Source Serif 4', Georgia, serif;
-  font-size: 15px;
-  line-height: 1.6;
-  padding: 12px 14px;
-  resize: vertical;
-  transition: border-color 0.3s;
-}
-
-.form-textarea:focus {
-  outline: none;
-  border-color: rgba(186, 178, 166, 0.35);
-}
-
-.form-select {
-  width: 100%;
-  background: rgba(186, 178, 166, 0.04);
-  border: 1px solid rgba(186, 178, 166, 0.15);
-  border-radius: 6px;
-  color: #e8e0d6;
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  padding: 10px 14px;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a7e72' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  transition: border-color 0.3s;
-}
-
-.form-select:focus {
-  outline: none;
-  border-color: rgba(186, 178, 166, 0.35);
-}
-
-.form-select option {
-  background: #1a1714;
-  color: #e8e0d6;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-family: 'DM Mono', monospace;
-  font-weight: 500;
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  border: 1px solid rgba(186, 178, 166, 0.2);
-  border-radius: 6px;
-  padding: 12px 24px;
-  cursor: pointer;
-  transition: all 0.3s;
-  background: transparent;
-  color: #e8e0d6;
-}
-
-.btn:hover {
-  background: rgba(186, 178, 166, 0.1);
-  border-color: rgba(186, 178, 166, 0.35);
-}
-
-.btn-add {
-  width: 100%;
-  margin-top: 4px;
-}
-
-.btn-download {
-  margin: 40px auto 0;
-  display: flex;
-}
-
-/* ── Scrollbar ── */
-
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(186, 178, 166, 0.15);
-  border-radius: 3px;
-}
-
-/* ── Selection ── */
-
-::selection {
-  background: rgba(45, 106, 79, 0.35);
-  color: #f0e8de;
-}
-
-/* ── Responsive ── */
-
-@media (max-width: 480px) {
-  .container {
-    padding: 32px 16px 64px;
-  }
-
-  .progress {
-    gap: 20px;
-  }
-
-  .progress-number {
-    font-size: 28px;
-  }
-
-  .pact-item {
-    padding: 16px;
-  }
-
-  .vote-row {
-    gap: 8px;
-  }
-
-  .vote-buttons {
-    gap: 6px;
-  }
-}
+.callout.warn{border-left-color:var(--gold);background:rgba(247,181,0,.06)}
+.callout.bad{border-left-color:var(--bad);background:rgba(255,93,93,.06)}
+.callout .t{font-weight:850;color:#EAFFFA;font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.pill{font-size:10px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;padding:4px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.pill.loss{border-color:rgba(255,93,93,.42);background:rgba(255,93,93,.08);color:#FFD0D0}
+.pill.bind{border-color:rgba(247,181,0,.42);background:rgba(247,181,0,.08);color:#FFE7A6}
+.pill.proj{border-color:rgba(103,211,122,.42);background:rgba(103,211,122,.08);color:#DFFFE7}
+
+/* simple bar viz */
+.bars{margin-top:10px}
+.bar{display:grid;grid-template-columns:220px 1fr 70px;gap:10px;align-items:center;margin:8px 0}
+@media (max-width:900px){.bar{grid-template-columns:1fr} .bar .r{text-align:left}}
+.bar .lbl{font-size:12px;color:var(--muted)}
+.track{height:22px;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.fill{height:100%;display:flex;align-items:center;padding-left:10px;font-size:10px;font-weight:900;letter-spacing:.4px;text-transform:uppercase}
+.fill.ok{background:rgba(103,211,122,.35);color:#062016}
+.fill.warn{background:rgba(247,181,0,.35);color:#231a00}
+.fill.bad{background:rgba(255,93,93,.35);color:#240000}
+.bar .r{font-size:11px;color:#EAFFFA;text-align:right;font-family:var(--mono)}
+
+/* nested tabs */
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 10px}
+.subtab{cursor:pointer;user-select:none;padding:7px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.02);color:var(--muted);font-size:11.5px;font-weight:700}
+.subtab.active{border-color:rgba(120,160,255,.42);background:rgba(120,160,255,.10);color:#EAF2FF}
+.section{display:none}
+.section.active{display:block}
+.subsection{display:none}
+.subsection.active{display:block}
+
+.footer{margin-top:16px;color:var(--muted);font-size:11px}
+
+.hero{padding:18px 0 10px}
+.hero h2{margin:0;font-size:16px}
+.hero p{max-width:1100px}
+.cards{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.vc{grid-column:span 6}
+@media (max-width:1000px){.vc{grid-column:span 12}}
+.cardtop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.vctitle{font-size:14px;font-weight:850;margin:0}
+.meta{color:var(--muted);font-size:11.5px;margin-top:4px}
+.k{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.k span{padding:4px 8px;border-radius:999px;border:1px solid var(--line);font-size:10px;font-weight:900;letter-spacing:.35px;text-transform:uppercase;color:var(--muted)}
+.k .g{border-color:rgba(0,166,126,.5);background:rgba(0,166,126,.10);color:#EAFFFA}
+.k .a{border-color:rgba(247,181,0,.5);background:rgba(247,181,0,.10);color:#FFE7A6}
+.k .r{border-color:rgba(255,93,93,.5);background:rgba(255,93,93,.10);color:#FFD0D0}
+.dyn{border:1px dashed rgba(247,181,0,.45);background:rgba(247,181,0,.06);border-radius:14px;padding:10px;margin-top:10px}
+.dyn b{color:#FFE7A6}
+.chk{display:flex;gap:8px;align-items:flex-start;margin:6px 0;color:var(--muted);font-size:12.2px}
+.chk input{margin-top:2px}
+.smalllink{font-size:12px}
 </style>
 </head>
 <body>
-
-<!-- Sync status indicator -->
-<div class="sync-indicator" id="syncIndicator">
-  <span class="sync-dot offline" id="syncDot"></span>
-  <span id="syncLabel">Local only</span>
-</div>
-
-<div class="container">
-
-  <!-- Setup banner (shown when Firebase is not configured) -->
-  <div class="setup-banner" id="setupBanner" style="display: none;">
-    <strong>Cloud sync is not set up yet.</strong><br>
-    Both of you are seeing only your own local data right now.<br><br>
-    To sync votes across devices, open <code>index.html</code> and paste your Firebase config.
-    See the <code>FIREBASE SETUP</code> comment in the script for step-by-step instructions.
+  <div class="header">
+    <div class="title-row">
+      <div>
+        <h1>AFSTI Investment Cases — Partner Home (Living Fact Base)</h1>
+        <div class="subtitle">Read this page only to get the latest direction. Each VC link contains the full ecosystem map, value-loss view, trade constraints, and brick-level projects.</div>
+      </div>
+      <div class="tag">AGRA green · Dark template · Dynamic assumptions</div>
+    </div>
   </div>
 
-  <!-- Header -->
-  <header>
-    <p class="est">Est. 13 January 2026</p>
-    <h1>igaqa</h1>
-    <p class="subtitle">Dom &amp; Sab — the relationship we design together</p>
-    <p class="intro">We already did the brave part. Now let's make it the most extraordinary relationship we've ever known. Kate and Jack have nothing on us. Romeo and Juliet? Please. Dom and Sab are the only story.</p>
-  </header>
-
-  <!-- Legend -->
-  <div class="legend-wrapper">
-    <button class="legend-toggle" id="legendToggle" aria-expanded="false" aria-controls="legendBox">
-      <span>Voting guide</span>
-      <span class="arrow">&#9660;</span>
-    </button>
-    <div class="legend-box" id="legendBox" role="region">
-      <div class="legend-inner">
-        <div class="legend-item"><span class="legend-dot yes"></span> Y &mdash; Yes, I'm in</div>
-        <div class="legend-item"><span class="legend-dot no"></span> N &mdash; Can't do this one</div>
-        <div class="legend-item"><span class="legend-dot hold"></span> H &mdash; Let's discuss</div>
+  <div class="container">
+    <div class="panel hero">
+      <div class="h2">Portfolio headline <span class="badge neu">WHAT'S CHANGING</span></div>
+      <ul>
+        <li>We are shifting from "value chain descriptions" to <b>trade system theses</b>: project → constraint → corridor reliability → volume unlocked.</li>
+        <li>Every VC is judged on <b>risk-adjusted delivered competitiveness</b> (working capital, import risk premium, switching costs) — not only farmgate price.</li>
+        <li>We will explicitly <b>abandon</b> VCs where the economics do not clear after political economy and buyer behavior are included.</li>
+      </ul>
+      <div class="dyn">
+        <b>Dynamic items to confirm (partners can track):</b>
+        <div class="chk"><input type="checkbox" id="d1"><label for="d1">Malawi/DRC protein meal deficit magnitude (drives Zambia soya economics)</label></div>
+        <div class="chk"><input type="checkbox" id="d2"><label for="d2">Nigeria rice export policy credibility mechanism (avoiding blanket bans)</label></div>
+        <div class="chk"><input type="checkbox" id="d3"><label for="d3">Buyer spec/taste switching feasibility (Nigeria → target markets)</label></div>
       </div>
     </div>
-  </div>
 
-  <!-- Progress -->
-  <div class="progress">
-    <div class="progress-item">
-      <div class="progress-number" id="domCount">0</div>
-      <div class="progress-label">Dom voted</div>
-    </div>
-    <div class="progress-item">
-      <div class="progress-number" id="sabCount">0</div>
-      <div class="progress-label">Sab voted</div>
-    </div>
-    <div class="progress-item">
-      <div class="progress-number" id="bothYes">0</div>
-      <div class="progress-label">Both said yes</div>
-    </div>
-  </div>
-
-  <!-- Pact items -->
-  <div id="pactList"></div>
-
-  <!-- Divider -->
-  <div class="section-divider"></div>
-
-  <!-- Add new item -->
-  <div class="add-section">
-    <h2>Add to our pact</h2>
-    <form class="add-form" id="addForm">
-      <div class="form-group">
-        <label class="form-label" for="newItemText">New commitment</label>
-        <textarea class="form-textarea" id="newItemText" placeholder="Write your commitment here..." required></textarea>
+    <div class="cards">
+      <div class="panel vc">
+        <div class="cardtop">
+          <div>
+            <p class="vctitle">Zambia Soya — Idle Crushers → Regional Meal Corridor</p>
+            <div class="meta">Lobito–Upper Rift · Core logic: meal offtake unlocks crushing utilization</div>
+          </div>
+          <span class="badge ok">PRIORITY</span>
+        </div>
+        <div class="k"><span class="g">Aggregation gap</span><span class="g">Meal offtake</span><span class="a">Border variance</span></div>
+        <ul>
+          <li>Co-product reality: meal clearance is the economic driver.</li>
+          <li>Don't build new plants — fix aggregation + contracts + corridor reliability.</li>
+          <li>Named private movers: ETG/Parrogate, Alliance Ginneries, Zamanita, Mount Meru.</li>
+        </ul>
+        <div class="smalllink"><a href="vc_soya_zambia.html">Open VC page →</a></div>
       </div>
-      <div class="form-group">
-        <label class="form-label" for="newItemCategory">Category</label>
-        <select class="form-select" id="newItemCategory" required>
-          <option value="Intentionality">Intentionality</option>
-          <option value="Our Private World">Our Private World</option>
-          <option value="Presence & Attunement">Presence &amp; Attunement</option>
-          <option value="Integrity">Integrity</option>
-        </select>
+
+      <div class="panel vc">
+        <div class="cardtop">
+          <div>
+            <p class="vctitle">Nigeria Rice — Exportability via Product Development + Quality System</p>
+            <div class="meta">Abidjan–Lagos · High political risk; spec/taste is a testable hypothesis</div>
+          </div>
+          <span class="badge warn">HIGH-RISK</span>
+        </div>
+        <div class="k"><span class="a">Spec mismatch</span><span class="r">Policy volatility</span><span class="a">Buyer switching</span></div>
+        <ul>
+          <li>Not autokilled by taste — must be proven with varietals + mill retrofits + trial shipments.</li>
+          <li>Export charter required to reduce risk premium for investors.</li>
+          <li>Projects focus on drying/grading, WRS, mill retrofits, buyer onboarding.</li>
+        </ul>
+        <div class="smalllink"><a href="vc_rice_nigeria_short.html">Open VC page →</a></div>
       </div>
-      <button type="submit" class="btn btn-add">Add to pact</button>
-    </form>
+
+      <div class="panel vc">
+        <div class="cardtop">
+          <div>
+            <p class="vctitle">Malawi Poultry — Limpopo–Southern Africa</p>
+            <div class="meta">Protein corridor · Full ecosystem map available</div>
+          </div>
+          <span class="badge ok">PRIORITY</span>
+        </div>
+        <div class="k"><span class="g">Feed supply</span><span class="a">Cold chain</span><span class="g">Regional demand</span></div>
+        <ul>
+          <li>Full value chain analysis with ecosystem mapping and constraint identification.</li>
+          <li>Poultry as protein source for Southern African regional demand.</li>
+        </ul>
+        <div class="smalllink"><a href="vc_poultry_malawi (1).html">Open VC page →</a></div>
+      </div>
+
+      <div class="panel vc">
+        <div class="cardtop">
+          <div>
+            <p class="vctitle">Zimbabwe Wheat — Short Analysis</p>
+            <div class="meta">Compact value chain assessment</div>
+          </div>
+          <span class="badge neu">IN PROGRESS</span>
+        </div>
+        <ul>
+          <li>Short-form wheat value chain analysis for Zimbabwe.</li>
+          <li>Covers key constraints, trade dynamics, and project opportunities.</li>
+        </ul>
+        <div class="smalllink"><a href="vc_wheat_zimbabwe_short.html">Open VC page →</a></div>
+      </div>
+    </div>
+
+    <div class="footer">Tip: tick/untick the dynamic items — they persist in your browser (localStorage) for SteerCo tracking.</div>
   </div>
-
-  <!-- Download -->
-  <button class="btn btn-download" id="downloadBtn">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-    Download pact
-  </button>
-
-</div>
-
-<!-- Firebase SDK (loaded before app script) -->
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 
 <script>
-(function () {
-  'use strict';
-
-  // ══════════════════════════════════════════════════════════════
-  //  FIREBASE SETUP — Follow these steps to enable cloud sync
-  //
-  //  1. Go to https://console.firebase.google.com
-  //  2. Click "Create a project" (or "Add project")
-  //     - Name it anything (e.g. "igaqa")
-  //     - You can disable Google Analytics — not needed
-  //  3. In the left sidebar, click "Build" → "Firestore Database"
-  //     - Click "Create database"
-  //     - Choose "Start in test mode" (allows open read/write)
-  //     - Pick the nearest location, then click "Enable"
-  //  4. Back in the sidebar, click the gear icon → "Project settings"
-  //     - Scroll down to "Your apps" section
-  //     - Click the Web icon (</>)
-  //     - Enter any nickname (e.g. "igaqa-web"), click "Register app"
-  //     - You'll see a firebaseConfig object — copy those values below
-  //  5. Paste the values into FIREBASE_CONFIG below and redeploy.
-  //     Both of you will now see the same data in real time.
-  //
-  //  SECURITY NOTE: "Test mode" rules expire after 30 days.
-  //  When they expire, go to Firestore → Rules and set:
-  //    rules_version = '2';
-  //    service cloud.firestore {
-  //      match /databases/{database}/documents {
-  //        match /igaqa/{doc} {
-  //          allow read, write: if true;
-  //        }
-  //      }
-  //    }
-  // ══════════════════════════════════════════════════════════════
-
-  var FIREBASE_CONFIG = {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: ""
-  };
-
-  // ── Firebase init ──
-
-  var USE_CLOUD = FIREBASE_CONFIG.projectId !== "";
-  var db = null;
-
-  if (USE_CLOUD) {
-    try {
-      firebase.initializeApp(FIREBASE_CONFIG);
-      db = firebase.firestore();
-      // Enable offline persistence for instant local reads
-      db.enablePersistence({ synchronizeTabs: true }).catch(function () {});
-    } catch (e) {
-      console.error('Firebase init failed:', e);
-      USE_CLOUD = false;
-    }
-  }
-
-  // ── Sync status ──
-
-  var syncDot = document.getElementById('syncDot');
-  var syncLabelEl = document.getElementById('syncLabel');
-
-  function setSyncStatus(status) {
-    if (!syncDot) return;
-    syncDot.className = 'sync-dot ' + status;
-    var labels = { synced: 'Synced', syncing: 'Syncing', offline: 'Local only', error: 'Offline' };
-    syncLabelEl.textContent = labels[status] || status;
-  }
-
-  if (!USE_CLOUD) {
-    setSyncStatus('offline');
-    document.getElementById('setupBanner').style.display = 'block';
-  }
-
-  // ── Default pact items ──
-
-  var DEFAULT_ITEMS = [
-    {
-      id: 'default-1',
-      category: 'Intentionality',
-      text: 'Wednesday dinner date \u2014 non-negotiable'
-    },
-    {
-      id: 'default-2',
-      category: 'Intentionality',
-      text: 'Last weekend of every month: away weekend. Lovely hotel max 2hrs away. If we\u2019re broke, we stay with friends or sleep in the car by a river. This is not movable. We plan around it. If someone travels, the other comes. If someone dies, matsidiso becomes the weekend'
-    },
-    {
-      id: 'default-3',
-      category: 'Intentionality',
-      text: 'Birthdays are done exactly according to birthday boy\u2019s exact wishes, as far as finances allow. Birthdays are a thing'
-    },
-    {
-      id: 'default-4',
-      category: 'Our Private World',
-      text: 'Give a weekly nickname based on the fun I hope for you this week'
-    },
-    {
-      id: 'default-5',
-      category: 'Our Private World',
-      text: 'Thursday song challenge \u2014 each assigns the other an important song, both must learn lyrics and sing without dropping one. Drop a lyric? The other picks your Friday outfit'
-    },
-    {
-      id: 'default-6',
-      category: 'Our Private World',
-      text: 'One day a week, each picks a way to show intimacy to the other. Different days. The shower chooses the method and doesn\u2019t say it in the moment. At 10pm the showee is asked to guess when it was \u2014 but the shower has it on paper'
-    },
-    {
-      id: 'default-7',
-      category: 'Presence & Attunement',
-      text: 'Each morning check in, even via WhatsApp, saying: here is how I hope this day goes for me'
-    },
-    {
-      id: 'default-8',
-      category: 'Presence & Attunement',
-      text: 'Daily wellbeing provocation \u2014 a thing I\u2019d like you to consciously do today (e.g. take a deep intentional breath, drink a litre of water and send proof, 15 minutes of stillness)'
-    },
-    {
-      id: 'default-9',
-      category: 'Integrity',
-      text: 'Official anniversary: 13 January 2026'
-    }
-  ];
-
-  var CATEGORY_ORDER = [
-    'Intentionality',
-    'Our Private World',
-    'Presence & Attunement',
-    'Integrity'
-  ];
-
-  // ── State ──
-
-  var items = [];
-  var votes = {}; // { itemId: { dom: 'Y'|'N'|'H'|null, sab: 'Y'|'N'|'H'|null } }
-
-  // ── Persistence helpers ──
-
-  function getDefaults() {
-    return DEFAULT_ITEMS.map(function (item) {
-      return { id: item.id, category: item.category, text: item.text };
-    });
-  }
-
-  function ensureVoteEntries() {
-    items.forEach(function (item) {
-      if (!votes[item.id]) {
-        votes[item.id] = { dom: null, sab: null };
-      }
-    });
-  }
-
-  function backupToLocal() {
-    try {
-      localStorage.setItem('igaqa-items', JSON.stringify(items));
-      localStorage.setItem('igaqa-votes', JSON.stringify(votes));
-    } catch (e) {}
-  }
-
-  function loadFromLocal() {
-    try {
-      var savedItems = localStorage.getItem('igaqa-items');
-      var savedVotes = localStorage.getItem('igaqa-votes');
-      if (savedItems) items = JSON.parse(savedItems);
-      else items = getDefaults();
-      if (savedVotes) votes = JSON.parse(savedVotes);
-    } catch (e) {
-      items = getDefaults();
-      votes = {};
-    }
-    ensureVoteEntries();
-  }
-
-  // ── Load state ──
-
-  function loadState() {
-    if (USE_CLOUD) {
-      setSyncStatus('syncing');
-
-      db.collection('igaqa').doc('state').onSnapshot(
-        function (doc) {
-          if (doc.exists) {
-            var data = doc.data();
-            items = data.items || [];
-            votes = data.votes || {};
-          } else {
-            // First time ever — seed with defaults
-            items = getDefaults();
-            votes = {};
-            ensureVoteEntries();
-            db.collection('igaqa').doc('state').set({
-              items: items,
-              votes: votes
-            });
-          }
-
-          ensureVoteEntries();
-
-          // Update sync indicator from snapshot metadata
-          if (doc.metadata.fromCache && !doc.metadata.hasPendingWrites) {
-            setSyncStatus('error');
-          } else if (doc.metadata.hasPendingWrites) {
-            setSyncStatus('syncing');
-          } else {
-            setSyncStatus('synced');
-          }
-
-          backupToLocal();
-          render();
-        },
-        function (error) {
-          console.error('Firestore listener error:', error);
-          setSyncStatus('error');
-          loadFromLocal();
-          render();
-        }
-      );
-    } else {
-      loadFromLocal();
-      render();
-    }
-  }
-
-  // ── Save: atomic vote update ──
-
-  function saveVote(itemId, person, value) {
-    if (USE_CLOUD) {
-      var update = {};
-      update['votes.' + itemId + '.' + person] = value;
-      db.collection('igaqa').doc('state').update(update).catch(function (e) {
-        console.error('Vote save failed:', e);
-        backupToLocal();
-      });
-    } else {
-      backupToLocal();
-    }
-  }
-
-  // ── Save: add new item ──
-
-  function saveNewItem(newItem) {
-    if (USE_CLOUD) {
-      var update = {};
-      update['votes.' + newItem.id] = { dom: null, sab: null };
-      update.items = firebase.firestore.FieldValue.arrayUnion(newItem);
-      db.collection('igaqa').doc('state').update(update).catch(function (e) {
-        console.error('Add item failed:', e);
-        backupToLocal();
-      });
-    } else {
-      backupToLocal();
-    }
-  }
-
-  // ── Render ──
-
-  function render() {
-    var listEl = document.getElementById('pactList');
-    listEl.innerHTML = '';
-
-    // Group by category
-    var grouped = {};
-    CATEGORY_ORDER.forEach(function (cat) {
-      grouped[cat] = [];
-    });
-
-    items.forEach(function (item) {
-      if (!grouped[item.category]) {
-        grouped[item.category] = [];
-      }
-      grouped[item.category].push(item);
-    });
-
-    CATEGORY_ORDER.forEach(function (cat) {
-      var catItems = grouped[cat];
-      if (!catItems || catItems.length === 0) return;
-
-      var section = document.createElement('div');
-      section.className = 'category';
-
-      var header = document.createElement('div');
-      header.className = 'category-header';
-      header.textContent = cat;
-      section.appendChild(header);
-
-      catItems.forEach(function (item) {
-        section.appendChild(createPactItemEl(item));
-      });
-
-      listEl.appendChild(section);
-    });
-
-    updateProgress();
-  }
-
-  function createPactItemEl(item) {
-    var el = document.createElement('div');
-    el.className = 'pact-item';
-
-    var textEl = document.createElement('div');
-    textEl.className = 'pact-text';
-    textEl.textContent = item.text;
-    el.appendChild(textEl);
-
-    var votesSection = document.createElement('div');
-    votesSection.className = 'votes-section';
-
-    votesSection.appendChild(createVoteRow('Dom', 'dom', item.id));
-    votesSection.appendChild(createVoteRow('Sab', 'sab', item.id));
-
-    el.appendChild(votesSection);
-    return el;
-  }
-
-  function createVoteRow(label, person, itemId) {
-    var row = document.createElement('div');
-    row.className = 'vote-row';
-
-    var nameEl = document.createElement('span');
-    nameEl.className = 'vote-name';
-    nameEl.textContent = label;
-    row.appendChild(nameEl);
-
-    var divider = document.createElement('span');
-    divider.className = 'vote-divider';
-    row.appendChild(divider);
-
-    var buttons = document.createElement('div');
-    buttons.className = 'vote-buttons';
-
-    var currentVote = votes[itemId] ? votes[itemId][person] : null;
-
-    ['Y', 'N', 'H'].forEach(function (v) {
-      var btn = document.createElement('button');
-      btn.className = 'vote-btn';
-      btn.textContent = v;
-      btn.type = 'button';
-      btn.setAttribute('aria-label', label + ' votes ' + v + ' on this item');
-
-      if (currentVote === v) {
-        btn.classList.add('active-' + v.toLowerCase());
-      }
-
-      btn.addEventListener('click', function () {
-        handleVote(itemId, person, v);
-      });
-
-      buttons.appendChild(btn);
-    });
-
-    row.appendChild(buttons);
-    return row;
-  }
-
-  function handleVote(itemId, person, value) {
-    if (!votes[itemId]) {
-      votes[itemId] = { dom: null, sab: null };
-    }
-
-    // Toggle: if same vote, deselect; otherwise, set
-    if (votes[itemId][person] === value) {
-      votes[itemId][person] = null;
-      saveVote(itemId, person, null);
-    } else {
-      votes[itemId][person] = value;
-      saveVote(itemId, person, value);
-    }
-
-    // In cloud mode, onSnapshot will trigger render.
-    // In local mode, render immediately.
-    if (!USE_CLOUD) {
-      render();
-    }
-  }
-
-  function updateProgress() {
-    var domCount = 0;
-    var sabCount = 0;
-    var bothYes = 0;
-
-    items.forEach(function (item) {
-      var v = votes[item.id];
-      if (!v) return;
-      if (v.dom) domCount++;
-      if (v.sab) sabCount++;
-      if (v.dom === 'Y' && v.sab === 'Y') bothYes++;
-    });
-
-    document.getElementById('domCount').textContent = domCount;
-    document.getElementById('sabCount').textContent = sabCount;
-    document.getElementById('bothYes').textContent = bothYes;
-  }
-
-  // ── Legend toggle ──
-
-  function initLegend() {
-    var toggle = document.getElementById('legendToggle');
-    var box = document.getElementById('legendBox');
-
-    toggle.addEventListener('click', function () {
-      var isOpen = box.classList.contains('open');
-      if (isOpen) {
-        box.classList.remove('open');
-        toggle.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-      } else {
-        box.classList.add('open');
-        toggle.classList.add('open');
-        toggle.setAttribute('aria-expanded', 'true');
-      }
-    });
-  }
-
-  // ── Add item ──
-
-  function initAddForm() {
-    var form = document.getElementById('addForm');
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      var text = document.getElementById('newItemText').value.trim();
-      var category = document.getElementById('newItemCategory').value;
-
-      if (!text) return;
-
-      var newItem = {
-        id: 'item-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6),
-        category: category,
-        text: text
-      };
-
-      items.push(newItem);
-      votes[newItem.id] = { dom: null, sab: null };
-      saveNewItem(newItem);
-
-      if (!USE_CLOUD) {
-        render();
-      }
-
-      document.getElementById('newItemText').value = '';
-    });
-  }
-
-  // ── Download ──
-
-  function initDownload() {
-    document.getElementById('downloadBtn').addEventListener('click', function () {
-      var lines = [];
-      lines.push('igaqa \u2014 Dom & Sab');
-      lines.push('The relationship we design together');
-      lines.push('Est. 13 January 2026');
-      lines.push('');
-      lines.push('\u201CWe already did the brave part. Now let\u2019s make it the most extraordinary relationship we\u2019ve ever known. Kate and Jack have nothing on us. Romeo and Juliet? Please. Dom and Sab are the only story.\u201D');
-      lines.push('');
-      lines.push('='.repeat(60));
-      lines.push('');
-
-      CATEGORY_ORDER.forEach(function (cat) {
-        var catItems = items.filter(function (item) { return item.category === cat; });
-        if (catItems.length === 0) return;
-
-        lines.push(cat.toUpperCase());
-        lines.push('-'.repeat(40));
-
-        catItems.forEach(function (item, i) {
-          var v = votes[item.id] || { dom: null, sab: null };
-          lines.push('');
-          lines.push((i + 1) + '. ' + item.text);
-          lines.push('   Dom: ' + (v.dom || '\u2014'));
-          lines.push('   Sab: ' + (v.sab || '\u2014'));
-        });
-
-        lines.push('');
-        lines.push('');
-      });
-
-      // Summary
-      var dc = 0, sc = 0, by = 0;
-      items.forEach(function (item) {
-        var v = votes[item.id];
-        if (!v) return;
-        if (v.dom) dc++;
-        if (v.sab) sc++;
-        if (v.dom === 'Y' && v.sab === 'Y') by++;
-      });
-
-      lines.push('='.repeat(60));
-      lines.push('PROGRESS');
-      lines.push('Dom voted: ' + dc + ' / ' + items.length);
-      lines.push('Sab voted: ' + sc + ' / ' + items.length);
-      lines.push('Both said yes: ' + by + ' / ' + items.length);
-      lines.push('');
-      lines.push('Downloaded: ' + new Date().toLocaleDateString('en-ZA', { year: 'numeric', month: 'long', day: 'numeric' }));
-
-      var blob = new Blob([lines.join('\n')], { type: 'text/plain' });
-      var url = URL.createObjectURL(blob);
-      var a = document.createElement('a');
-      a.href = url;
-      a.download = 'igaqa-pact.txt';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    });
-  }
-
-  // ── Init ──
-
-  loadState();
-  initLegend();
-  initAddForm();
-  initDownload();
-
-})();
+  // Persist homepage checkboxes locally
+  ['d1','d2','d3'].forEach(function(id){
+    var el=document.getElementById(id);
+    var v=localStorage.getItem('afsti_'+id);
+    if(v!==null) el.checked = (v==='1');
+    el.addEventListener('change', function(){ localStorage.setItem('afsti_'+id, el.checked?'1':'0'); });
+  });
 </script>
-
 </body>
 </html>

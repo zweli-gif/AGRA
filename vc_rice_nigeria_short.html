@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AFSTI | Rice | Nigeria (Short)</title>
+<style>
+:root{
+  --g:#1B5E20;--g2:#2E7D32;--g3:#4CAF50;--gl:rgba(27,94,32,.06);--gb:rgba(27,94,32,.25);
+  --r:#c0392b;--rl:rgba(192,57,43,.06);--rb:rgba(192,57,43,.25);
+  --a:#8B6914;--al:rgba(184,134,11,.06);--ab:rgba(184,134,11,.25);
+  --bk:#1a1a1a;--mu:#666;--ln:#dde3dd;--bg:#fff;--panel:#f7f9f7;
+  --sans:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  --rad:14px;
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--bk);font:13px/1.5 var(--sans)}
+.hdr{padding:20px 24px 12px;border-bottom:1px solid var(--ln);background:linear-gradient(180deg,#f0f7f1,#fff)}
+.hdr h1{font-size:18px;color:var(--g);margin-bottom:2px}
+.hdr .sub{font-size:11px;color:var(--mu)}
+.nav{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0}
+.tb{cursor:pointer;padding:7px 11px;border-radius:999px;border:1px solid var(--ln);font-size:11px;color:var(--mu);background:#fff;font-weight:500}
+.tb.on{background:var(--gl);border-color:var(--gb);color:var(--g);font-weight:700}
+.wrap{max-width:1100px;margin:0 auto;padding:16px 24px 32px}
+.sec{display:none}.sec.on{display:block}
+.c{background:#fff;border:1px solid var(--ln);border-radius:var(--rad);padding:14px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.c h2{font-size:14px;color:var(--g);margin-bottom:8px}
+.c h3{font-size:12px;color:var(--g);margin:10px 0 6px;font-weight:700}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
+.g6{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+@media(max-width:800px){.g2,.g3,.g4{grid-template-columns:1fr}.g6{grid-template-columns:repeat(3,1fr)}}
+.k{border:1px solid var(--ln);border-radius:12px;padding:10px;background:var(--panel)}
+.k .l{font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.3px}
+.k .v{font-size:20px;font-weight:700;color:var(--g);margin:4px 0 2px}
+.k .n{font-size:10px;color:var(--mu)}
+.k.red .v{color:var(--r)}.k.amber .v{color:var(--a)}
+ul{padding-left:16px;margin:4px 0}
+li{font-size:12px;margin-bottom:3px;color:var(--bk)}
+li strong{color:var(--g)}
+li.red{color:var(--r)}li.red strong{color:var(--r)}
+li.amber{color:var(--a)}li.amber strong{color:var(--a)}
+.p{display:inline-block;padding:3px 8px;border-radius:999px;font-size:10px;font-weight:600}
+.p.ok{background:var(--gl);border:1px solid var(--gb);color:var(--g)}
+.p.warn{background:var(--al);border:1px solid var(--ab);color:var(--a)}
+.p.bad{background:var(--rl);border:1px solid var(--rb);color:var(--r)}
+.t{width:100%;border-collapse:separate;border-spacing:0;border-radius:10px;overflow:hidden;border:1px solid var(--ln);margin:8px 0}
+.t th{background:var(--gl);color:var(--g);font-size:11px;padding:8px;text-align:left;font-weight:600}
+.t td{font-size:11px;padding:7px 8px;border-top:1px solid var(--ln);color:var(--bk)}
+.t .mono{font-family:var(--mono)}
+.bar{margin:4px 0}
+.bar-r{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.bar-l{font-size:10px;color:var(--mu);width:75px;text-align:right;flex-shrink:0}
+.bar-t{flex:1;height:16px;background:#f0f0f0;border-radius:8px;overflow:hidden}
+.bar-f{height:100%;border-radius:8px;display:flex;align-items:center;justify-content:flex-end;padding-right:5px;font-size:9px;color:#fff;font-weight:700}
+.bar-f.gn{background:linear-gradient(90deg,#4CAF50,#1B5E20)}.bar-f.rd{background:linear-gradient(90deg,#e57373,#c0392b)}.bar-f.am{background:linear-gradient(90deg,#FFB74D,#F57F17)}
+.nd{border:1px solid var(--ln);border-radius:12px;padding:10px;background:var(--panel);position:relative;min-height:90px}
+.nd .h{font-size:11px;font-weight:700;color:var(--g)}
+.nd ul{padding-left:12px}
+.nd li{font-size:10px;margin-bottom:2px}
+.fl{position:absolute;top:6px;right:6px;font-size:9px;padding:2px 6px;border-radius:999px}
+.fl.bind{background:var(--al);border:1px solid var(--ab);color:var(--a)}
+.fl.loss{background:var(--rl);border:1px solid var(--rb);color:var(--r)}
+.fl.mkt{background:var(--gl);border:1px solid var(--gb);color:var(--g)}
+.sig{display:flex;gap:8px;margin:8px 0}
+.sig .s{flex:1;border-radius:10px;padding:8px 10px;font-size:11px;font-weight:600}
+.sig .s.ok{background:var(--gl);border:1px solid var(--gb);color:var(--g)}
+.sig .s.warn{background:var(--al);border:1px solid var(--ab);color:var(--a)}
+.sig .s.bad{background:var(--rl);border:1px solid var(--rb);color:var(--r)}
+.sig .s span{display:block;font-size:10px;font-weight:400;margin-top:2px}
+.kill{border:1px solid var(--rb);border-radius:10px;padding:8px 10px;background:var(--rl);margin:8px 0}
+.kill .h{font-size:11px;font-weight:700;color:var(--r);margin-bottom:4px}
+.kill li{font-size:11px;color:var(--r)}
+.ft{font-size:10px;color:var(--mu);margin-top:10px;border-top:1px solid var(--ln);padding-top:8px}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <h1>Nigeria Rice — Short Version</h1>
+  <div class="sub">Abidjan–Lagos Corridor · Import substitution framing</div>
+  <div class="nav" id="nav">
+    <div class="tb on" onclick="go(0)">1) Thesis</div>
+    <div class="tb" onclick="go(1)">2) Cost physics</div>
+    <div class="tb" onclick="go(2)">3) Demand fit</div>
+    <div class="tb" onclick="go(3)">4) Ecosystem map</div>
+    <div class="tb" onclick="go(4)">5) Five projects</div>
+    <div class="tb" onclick="go(5)">6) Players & tests</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ==================== TAB 1: THESIS ==================== -->
+<div class="sec on" id="s0">
+  <div class="c">
+    <h2>Governing thought</h2>
+    <div class="sig">
+      <div class="s bad">✗ NOT an export play<span>&lt;20% probability of net exporter status</span></div>
+      <div class="s ok">✓ $800M+/yr import bill to capture<span>Import substitution = the real opportunity</span></div>
+      <div class="s warn">⚠ Latent demand trap<span>Yield gains eaten by population growth</span></div>
+    </div>
+    <ul>
+      <li><strong>Honest framing:</strong> Import substitution, not export</li>
+      <li><strong>Why not export?</strong> Demand grows 2.2× by 2050</li>
+      <li><strong>The trap:</strong> Moderate yield ↑ ≠ surplus</li>
+      <li><strong>PE reality:</strong> Export ban = electoral insurance</li>
+    </ul>
+  </div>
+
+  <div class="g4">
+    <div class="k red"><div class="l">Import bill (annual)</div><div class="v">$800M+</div><div class="n">
+      • Official: ~240kt (2024)<br/>
+      • Informal via Benin: ~1.5MMT<br/>
+      • True imports 5–6× official
+    </div></div>
+    <div class="k"><div class="l">Production (paddy)</div><div class="v">~5MMT</div><div class="n">
+      • Down from ~10MMT<br/>
+      • Insecurity halved output<br/>
+      • → ~3MMT milled
+    </div></div>
+    <div class="k red"><div class="l">Demand (milled)</div><div class="v">~9MMT</div><div class="n">
+      • 230M+ population<br/>
+      • Growing 2.5%/yr<br/>
+      • → 16MMT by 2050
+    </div></div>
+    <div class="k amber"><div class="l">Gap to close</div><div class="v">~6MMT</div><div class="n">
+      • Self-sufficiency need: ~20M paddy<br/>
+      • Current: ~5M paddy<br/>
+      • 4× production increase needed
+    </div></div>
+  </div>
+
+  <div class="c">
+    <h3>Why NOT framing this as export</h3>
+    <div class="g2">
+      <div>
+        <ul>
+          <li class="red"><strong>Latent demand trap:</strong> Nigeria adds ~5M people/yr; each eats ~35kg rice. That's +175kt demand/yr just from population growth</li>
+          <li class="red"><strong>Yield at 2.0 t/ha</strong> — even doubling yield to 4.0 t/ha on current area = ~10M paddy = ~6.5M milled. Still short of 9M demand</li>
+          <li class="red"><strong>Export ban</strong> is de facto permanent — no government will allow rice exports while imports continue</li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+          <li><strong>✓ The honest case is $800M/yr saved</strong></li>
+          <li><strong>✓ Every tonne substituted</strong> = FX preserved</li>
+          <li><strong>✓ Jobs created domestically</strong></li>
+          <li><strong>✓ DFIs understand this framing</strong></li>
+          <li><strong>✓ Government alignment: import substitution ≠ export permission battle</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="c">
+    <h3>Scenario model: can Nigeria become net exporter?</h3>
+    <table class="t">
+      <thead><tr><th>Scenario</th><th>Yield (t/ha)</th><th>Area (M ha)</th><th>Paddy (MMT)</th><th>Milled (MMT)</th><th>Surplus?</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Status quo</strong></td><td class="mono">2.0</td><td class="mono">2.5</td><td class="mono">5.0</td><td class="mono">3.3</td><td><span class="p bad">-5.7M gap</span></td></tr>
+        <tr><td><strong>Moderate reform</strong></td><td class="mono">3.5</td><td class="mono">3.5</td><td class="mono">12.3</td><td class="mono">8.0</td><td><span class="p bad">-1.0M gap</span></td></tr>
+        <tr><td><strong>Aggressive reform</strong></td><td class="mono">5.0</td><td class="mono">4.0</td><td class="mono">20.0</td><td class="mono">13.0</td><td><span class="p warn">+4.0M (by then demand = 12M)</span></td></tr>
+        <tr><td><strong>Export scenario</strong></td><td class="mono">6.0+</td><td class="mono">5.0+</td><td class="mono">30.0+</td><td class="mono">19.5+</td><td><span class="p ok">Surplus — requires Egypt-level yield</span></td></tr>
+      </tbody>
+    </table>
+    <ul>
+      <li class="red"><strong>Aggressive reform probability: &lt;20%</strong> — requires sustained 15-year investment, security stabilisation, irrigation revolution</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ==================== TAB 2: COST PHYSICS ==================== -->
+<div class="sec" id="s1">
+  <div class="c">
+    <h2>Cost decomposition: current → reformed</h2>
+    <table class="t">
+      <thead><tr><th>Bucket</th><th>Component</th><th>Now</th><th>Reformed</th><th>Δ</th><th>Lever</th></tr></thead>
+      <tbody>
+        <tr><td rowspan="2"><strong>Inputs</strong></td><td>Seed (certified)</td><td class="mono">$85</td><td class="mono">$60</td><td class="mono" style="color:var(--g)">-$25</td><td>Seed multiplication + certified varieties</td></tr>
+        <tr><td>Fertiliser + chemicals</td><td class="mono">$200</td><td class="mono">$140</td><td class="mono" style="color:var(--g)">-$60</td><td>Bulk + blending + subsidy reform</td></tr>
+        <tr><td rowspan="2"><strong>Production</strong></td><td>Land prep + labour</td><td class="mono">$150</td><td class="mono">$100</td><td class="mono" style="color:var(--g)">-$50</td><td>Mechanised clusters</td></tr>
+        <tr><td>Irrigation (where applicable)</td><td class="mono">$80</td><td class="mono">$50</td><td class="mono" style="color:var(--g)">-$30</td><td>Scheme rehab + solar pumps</td></tr>
+        <tr><td><strong>Harvest</strong></td><td>Harvest losses</td><td class="mono">$70</td><td class="mono">$30</td><td class="mono" style="color:var(--g)">-$40</td><td>Combine harvesters (40→55 bags recovered)</td></tr>
+        <tr><td rowspan="2"><strong>Milling</strong></td><td>Processing (energy + ops)</td><td class="mono">$120</td><td class="mono">$80</td><td class="mono" style="color:var(--g)">-$40</td><td>Process discipline + reliable power</td></tr>
+        <tr><td>Recovery loss (50→65%)</td><td class="mono">$90</td><td class="mono">$40</td><td class="mono" style="color:var(--g)">-$50</td><td>Mill setup, grading, parboiling controls</td></tr>
+        <tr><td><strong>Logistics</strong></td><td>Aggregation + transport</td><td class="mono">$55</td><td class="mono">$40</td><td class="mono" style="color:var(--g)">-$15</td><td>Hub-and-spoke aggregation</td></tr>
+        <tr style="background:var(--gl)"><td colspan="2"><strong>TOTAL COST/t MILLED</strong></td><td class="mono"><strong>$850</strong></td><td class="mono"><strong>$540</strong></td><td class="mono" style="color:var(--g)"><strong>-$310</strong></td><td><strong>-36% cost reduction</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="g3">
+    <div class="k red"><div class="l">Imported rice CIF Lagos</div><div class="v">$450–550/t</div><div class="n">Asian parboiled (India, Thailand)</div></div>
+    <div class="k amber"><div class="l">Nigerian current cost</div><div class="v">$850/t</div><div class="n">Uncompetitive — 55% premium</div></div>
+    <div class="k"><div class="l">Reformed target</div><div class="v" style="color:var(--g)">$540/t</div><div class="n">Near import parity possible</div></div>
+  </div>
+
+  <div class="g2">
+    <div class="c" style="margin:0">
+      <h3>Milling: the unlocked lever</h3>
+      <ul>
+        <li><strong>20M+ MT installed capacity</strong> exists</li>
+        <li><strong>Only ~5M MT actual output</strong></li>
+        <li><strong>Recovery: 50% (bad) vs 65% (good)</strong></li>
+        <li><strong>~50% of mills poorly set up</strong></li>
+        <li><strong>Fix is operational:</strong> SOPs, not capex</li>
+      </ul>
+    </div>
+    <div class="c" style="margin:0">
+      <h3 style="color:var(--r)">Yield benchmarking (t/ha, paddy)</h3>
+      <div class="bar">
+        <div class="bar-r"><div class="bar-l">Egypt</div><div class="bar-t"><div class="bar-f gn" style="width:100%">10.0</div></div></div>
+        <div class="bar-r"><div class="bar-l">Vietnam</div><div class="bar-t"><div class="bar-f gn" style="width:60%">6.0</div></div></div>
+        <div class="bar-r"><div class="bar-l">India</div><div class="bar-t"><div class="bar-f am" style="width:40%">4.0</div></div></div>
+        <div class="bar-r"><div class="bar-l">Nigeria</div><div class="bar-t"><div class="bar-f rd" style="width:20%">2.0</div></div></div>
+        <div class="bar-r"><div class="bar-l">Mali</div><div class="bar-t"><div class="bar-f rd" style="width:18%">1.8</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== TAB 3: DEMAND FIT ==================== -->
+<div class="sec" id="s2">
+  <div class="c">
+    <h2>Demand landscape: domestic substitution, not export</h2>
+    <table class="t">
+      <thead><tr><th>Market</th><th>Size</th><th>What they buy</th><th>Current source</th><th>Substitution fit?</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Nigeria domestic</strong></td><td>~9MMT · $6B+</td>
+          <td>Parboiled (70%), white long-grain (30%). Urban preference for Asian imports.</td>
+          <td>India, Thailand, Vietnam + local</td>
+          <td><span class="p ok">PRIMARY TARGET</span></td>
+        </tr>
+        <tr>
+          <td><strong>Ghana</strong></td><td>~700kt import</td>
+          <td>Parboiled rice. Domestic prod covers ~50%.</td>
+          <td>India, Vietnam, Thailand</td>
+          <td><span class="p bad">NOT NOW</span></td>
+        </tr>
+        <tr>
+          <td><strong>Côte d'Ivoire</strong></td><td>~1.2MMT import</td>
+          <td>Broken rice for attiéké + parboiled</td>
+          <td>India, Vietnam, Myanmar</td>
+          <td><span class="p bad">NOT NOW</span></td>
+        </tr>
+        <tr>
+          <td><strong>Senegal</strong></td><td>~1.1MMT import</td>
+          <td>Broken 100% for thiéboudienne</td>
+          <td>India, Thailand, Myanmar</td>
+          <td><span class="p bad">EXCLUDE</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="c">
+    <h2>Corridor rice demand by 2050 (MMT)</h2>
+    <div class="bar">
+      <div class="bar-r"><div class="bar-l">Nigeria</div><div class="bar-t"><div class="bar-f gn" style="width:100%">16 MMT — PRIMARY</div></div></div>
+      <div class="bar-r"><div class="bar-l">Ghana</div><div class="bar-t"><div class="bar-f am" style="width:13%">2 MMT</div></div></div>
+      <div class="bar-r"><div class="bar-l">Côte d'Ivoire</div><div class="bar-t"><div class="bar-f am" style="width:13%">2 MMT</div></div></div>
+      <div class="bar-r"><div class="bar-l">Benin</div><div class="bar-t"><div class="bar-f am" style="width:6%">1 MMT</div></div></div>
+      <div class="bar-r"><div class="bar-l">Togo</div><div class="bar-t"><div class="bar-f am" style="width:3%">0.5 MMT</div></div></div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="c" style="margin:0">
+      <h3>The Benin arbitrage problem</h3>
+      <ul>
+        <li class="red"><strong>Official imports: ~240kt (2024)</strong></li>
+        <li class="red"><strong>Actual: ~1.5MMT via Benin</strong></li>
+        <li class="red"><strong>Import ban = porous</strong></li>
+        <li class="amber"><strong>Benin re-exports Asian rice</strong></li>
+        <li><strong>Ban raises consumer prices 30–50%</strong></li>
+      </ul>
+    </div>
+    <div class="c" style="margin:0">
+      <h3>Import substitution capture targets</h3>
+      <div class="g2" style="gap:6px">
+        <div class="k"><div class="l">Year 1–3 target</div><div class="v" style="font-size:14px">+500kt</div><div class="n">Via milling efficiency alone</div></div>
+        <div class="k"><div class="l">Year 3–7 target</div><div class="v" style="font-size:14px">+2MMT</div><div class="n">Via irrigation + yield + milling</div></div>
+        <div class="k amber"><div class="l">FX saved (at target)</div><div class="v" style="font-size:14px">$300M/yr</div><div class="n">From displaced imports</div></div>
+        <div class="k"><div class="l">Jobs created</div><div class="v" style="font-size:14px">~200K</div><div class="n">Farming + milling + logistics</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== TAB 4: ECOSYSTEM MAP ==================== -->
+<div class="sec" id="s3">
+  <div class="c">
+    <h2>Value chain: 6 nodes, flags show constraints</h2>
+    <div class="g6">
+      <div class="nd">
+        <div class="fl bind">BIND</div>
+        <div class="h">1. Inputs</div>
+        <ul>
+          <li class="red"><strong>Seed: recycled after ~5yr</strong></li>
+          <li class="red"><strong>Fertiliser: ₦56K/bag</strong></li>
+          <li>Need 6–10 bags/ha</li>
+          <li>No functioning seed system</li>
+        </ul>
+      </div>
+      <div class="nd">
+        <div class="fl bind">BIND</div>
+        <div class="h">2. Production</div>
+        <ul>
+          <li class="red"><strong>Yield: 2.0 t/ha</strong></li>
+          <li class="red"><strong>Insecurity: halved area</strong></li>
+          <li>Rainfed &gt;85%</li>
+          <li>Fragmented smallholder</li>
+        </ul>
+      </div>
+      <div class="nd">
+        <div class="fl loss">LOSS</div>
+        <div class="h">3. Harvest</div>
+        <ul>
+          <li class="red"><strong>Manual: 40 bags recovered</strong></li>
+          <li><strong>Combine: 55 bags</strong></li>
+          <li>~25% field loss</li>
+          <li>Timeliness = key lever</li>
+        </ul>
+      </div>
+      <div class="nd">
+        <div class="fl loss">LOSS</div>
+        <div class="h">4. Milling</div>
+        <ul>
+          <li class="red"><strong>50% of mills badly set up</strong></li>
+          <li class="red"><strong>Recovery: 50 vs 65%</strong></li>
+          <li>20M+ MT capacity installed</li>
+          <li>Only ~5M MT output</li>
+        </ul>
+      </div>
+      <div class="nd">
+        <div class="fl bind">BIND</div>
+        <div class="h">5. Power</div>
+        <ul>
+          <li class="red"><strong>Energy costs doubled</strong></li>
+          <li class="red"><strong>Grid unreliable</strong></li>
+          <li>Diesel gensets = $$$</li>
+          <li>Solar hybrid emerging</li>
+        </ul>
+      </div>
+      <div class="nd">
+        <div class="fl mkt">MKT</div>
+        <div class="h">6. Market</div>
+        <ul>
+          <li><strong>9MMT demand</strong></li>
+          <li><strong>→16MMT by 2050</strong></li>
+          <li class="amber"><strong>Consumer prefers imports</strong></li>
+          <li>Quality gap = real</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="c">
+    <div class="sig">
+      <div class="s bad">⚠ Four co-binding constraints<span>Input costs + insecurity-driven area loss + harvest losses + milling inefficiency — must fix simultaneously to close gap</span></div>
+    </div>
+  </div>
+
+  <div class="c">
+    <h3>Political economy summary</h3>
+    <table class="t">
+      <thead><tr><th>Dimension</th><th>Rating</th><th>Key finding</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Import ban effectiveness</strong></td><td><span class="p bad">RED</span></td><td>Porous — Benin arbitrage ~1.5MMT; raises prices 30–50% for consumers</td></tr>
+        <tr><td><strong>Export probability</strong></td><td><span class="p bad">RED</span></td><td>&lt;20% — latent demand trap; population growth absorbs yield gains</td></tr>
+        <tr><td><strong>Policy coherence</strong></td><td><span class="p warn">AMBER</span></td><td>Ban = electoral insurance; government won't lift until self-sufficient</td></tr>
+        <tr><td><strong>Investment climate</strong></td><td><span class="p warn">AMBER</span></td><td>FX volatility, insecurity in north, but ~200 integrated mills show private sector activity</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ==================== TAB 5: FIVE PROJECTS ==================== -->
+<div class="sec" id="s4">
+  <div class="c">
+    <h2>5 projects — framed as import substitution</h2>
+    <div class="sig">
+      <div class="s ok">✓ These projects align with government: import substitution ≠ asking for export permission<span>DFIs, government, and private sector all win from the same framing</span></div>
+    </div>
+  </div>
+
+  <!-- P1 -->
+  <div class="c">
+    <h3>#1 Irrigated clusters (nucleus–outgrower) <span class="p warn">$40–80M · FOUNDATION</span></h3>
+    <div class="g3">
+      <div>
+        <div style="font-size:10px;color:var(--r);font-weight:700;margin-bottom:4px">CONSTRAINT</div>
+        <ul><li class="red"><strong>Yield: 2.0 t/ha (rainfed)</strong></li><li class="red"><strong>&gt;85% rainfed production</strong></li><li class="red"><strong>Seasonal, single-crop</strong></li></ul>
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--g);font-weight:700;margin-bottom:4px">INTERVENTION</div>
+        <ul><li><strong>Irrigated command areas</strong> (5,000 ha clusters)</li><li><strong>Nucleus farm + outgrowers</strong></li><li><strong>Input packages</strong> (seed, fertiliser, buyback)</li><li><strong>2 seasons/yr (dry + wet)</strong></li></ul>
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--g);font-weight:700;margin-bottom:4px">IMPACT</div>
+        <div class="g2" style="gap:6px">
+          <div class="k"><div class="l">Yield uplift</div><div class="v" style="font-size:16px">2.0→5.0 t/ha</div><div class="n">Irrigated + improved inputs</div></div>
+          <div class="k"><div class="l">Added output</div><div class="v" style="font-size:16px">+400kt paddy</div><div class="n">Per 5 clusters × 2 seasons</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="kill"><div class="h">KILL IF:</div><ul><li>Insecurity prevents operation of clusters in savannah belt</li></ul></div>
+  </div>
+
+  <!-- P2 -->
+  <div class="c">
+    <h3>#2 Mechanisation hubs (harvesting-first) <span class="p ok">$15–30M · QUICK WIN</span></h3>
+    <div class="g3">
+      <div>
+        <div style="font-size:10px;color:var(--r);font-weight:700;margin-bottom:4px">CONSTRAINT</div>
+        <ul><li class="red"><strong>Manual harvest = 40 bags</strong></li><li class="red"><strong>~25% field loss</strong></li><li class="red"><strong>Timeliness kills quality</strong></li></ul>
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--g);font-weight:700;margin-bottom:4px">INTERVENTION</div>
+        <ul><li><strong>Shared combine fleets</strong></li><li><strong>Pay-per-use model</strong></li><li><strong>Hub + spoke coverage</strong> (50km radius)</li><li><strong>GPS scheduling</strong></li></ul>
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--g);font-weight:700;margin-bottom:4px">IMPACT</div>
+        <div class="g2" style="gap:6px">
+          <div class="k"><div class="l">Harvest recovery</div><div class="v" style="font-size:16px">40→55 bags</div><div class="n">+37% from same field</div></div>
+          <div class="k"><div class="l">Value recovered</div><div class="v" style="font-size:16px">$50M/yr</div><div class="n">From reduced field loss</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="kill"><div class="h">KILL IF:</div><ul><li>Utilisation &lt;60% due to fragmented, inaccessible plots</li></ul></div>
+  </div>
+
+  <!-- P3 -->
+  <div class="c">
+    <h3>#3 Competitive milling hubs <span class="p ok">$20–40M · RECOVERY UPLIFT</span></h3>
+    <div class="g3">
+      <div>
+        <div style="font-size:10px;color:var(--r);font-weight:700;margin-bottom:4px">CONSTRAINT</div>
+        <ul><li class="red"><strong>50% of mills badly set up</strong></li><li class="red"><strong>Recovery: 50% vs 65%</strong></li><li class="red"><strong>Power doubles costs</strong></li></ul>
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--g);font-weight:700;margin-bottom:4px">INTERVENTION</div>
+        <ul><li><strong>Mill upgrades</strong> (pre-clean, parboil, grade)</li><li><strong>Shared services</strong> (drying, storage, QC)</li><li><strong>Ring-fenced paddy procurement $</strong></li><li><strong>Reliable power (solar hybrid)</strong></li></ul>
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--g);font-weight:700;margin-bottom:4px">IMPACT</div>
+        <div class="g2" style="gap:6px">
+          <div class="k"><div class="l">Recovery uplift</div><div class="v" style="font-size:16px">50→65%</div><div class="n">+500kt milled from same paddy</div></div>
+          <div class="k"><div class="l">Import parity</div><div class="v" style="font-size:16px">$540/t</div><div class="n">Competitive vs $500 Asian CIF</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="kill"><div class="h">KILL IF:</div><ul><li>Paddy supply collapses further due to insecurity</li></ul></div>
+  </div>
+
+  <!-- P4 -->
+  <div class="c">
+    <h3>#4 Certified seed multiplication <span class="p warn">$5–10M · UPSTREAM ENABLER</span></h3>
+    <div class="g3">
+      <div>
+        <div style="font-size:10px;color:var(--r);font-weight:700;margin-bottom:4px">CONSTRAINT</div>
+        <ul><li class="red"><strong>Seed recycled &gt;5 years</strong></li><li class="red"><strong>No functioning seed system</strong></li><li class="red"><strong>Productivity degrades annually</strong></li></ul>
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--g);font-weight:700;margin-bottom:4px">INTERVENTION</div>
+        <ul><li><strong>5 seed multiplication farms</strong></li><li><strong>Foundation + certified seed chain</strong></li><li><strong>Partnership with NCRI / AfricaRice</strong></li><li><strong>Dealer distribution network</strong></li></ul>
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--g);font-weight:700;margin-bottom:4px">IMPACT</div>
+        <div class="g2" style="gap:6px">
+          <div class="k"><div class="l">Yield uplift</div><div class="v" style="font-size:16px">+0.5–1.0 t/ha</div><div class="n">From seed renewal alone</div></div>
+          <div class="k"><div class="l">Coverage</div><div class="v" style="font-size:16px">500K farmers</div><div class="n">Within 5 years</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="kill"><div class="h">KILL IF:</div><ul><li>Counterfeit seed market cannot be controlled</li></ul></div>
+  </div>
+
+  <!-- P5 -->
+  <div class="c">
+    <h3>#5 Paddy procurement finance facility <span class="p ok">$30–50M · WORKING CAPITAL</span></h3>
+    <div class="g3">
+      <div>
+        <div style="font-size:10px;color:var(--r);font-weight:700;margin-bottom:4px">CONSTRAINT</div>
+        <ul><li class="red"><strong>Mills can't buy enough paddy</strong></li><li class="red"><strong>WC rates: 25–35%</strong></li><li class="red"><strong>Utilisation &lt;50% = idle tin</strong></li></ul>
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--g);font-weight:700;margin-bottom:4px">INTERVENTION</div>
+        <ul><li><strong>Revolving procurement facility</strong></li><li><strong>3–6 month tenor</strong></li><li><strong>Inventory-backed</strong></li><li><strong>DFI first-loss + commercial bank top-up</strong></li></ul>
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--g);font-weight:700;margin-bottom:4px">IMPACT</div>
+        <div class="g2" style="gap:6px">
+          <div class="k"><div class="l">Mill utilisation</div><div class="v" style="font-size:16px">50→70%</div><div class="n">From secured paddy supply</div></div>
+          <div class="k"><div class="l">Unit cost</div><div class="v" style="font-size:16px">-15%</div><div class="n">Fixed cost absorption</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="kill"><div class="h">KILL IF:</div><ul><li>Paddy price volatility &gt;40% intra-season</li></ul></div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="c">
+    <h3>Sequencing & totals</h3>
+    <div class="sig">
+      <div class="s ok">#2 Harvesters<span>Year 1 (quick win)</span></div>
+      <div class="s ok">#3 Mills<span>Year 1–2</span></div>
+      <div class="s warn">#5 WC finance<span>Year 1</span></div>
+      <div class="s warn">#4 Seed<span>Year 1–3</span></div>
+      <div class="s warn">#1 Irrigation<span>Year 2–5</span></div>
+    </div>
+    <div class="g3" style="margin-top:8px">
+      <div class="k"><div class="l">Total investment</div><div class="v" style="font-size:16px">$110–210M</div><div class="n">DFI 40% · Private 40% · Public 20%</div></div>
+      <div class="k"><div class="l">Import substitution (Yr 5)</div><div class="v" style="font-size:16px;color:var(--g)">+2–3 MMT</div><div class="n">=$300M/yr FX saved</div></div>
+      <div class="k"><div class="l">Jobs created</div><div class="v" style="font-size:16px;color:var(--g)">~200,000</div><div class="n">Farming + milling + logistics</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== TAB 6: PLAYERS & TESTS ==================== -->
+<div class="sec" id="s5">
+  <div class="c">
+    <h2>Named operators & stakeholders</h2>
+    <table class="t">
+      <thead><tr><th>Entity</th><th>Role</th><th>Why they matter</th><th>Projects</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Lagos State (LASG)</strong></td><td>State-level ag programme</td><td>Pilot: inputs + pumps + buyback. Working but small-scale (Dr. Fashola)</td><td><span class="p ok">#1 model</span></td></tr>
+        <tr><td><strong>Olam / Stallion Group</strong></td><td>Integrated rice mills</td><td>Largest private millers. Import + domestic processing.</td><td><span class="p ok">#3 #5</span></td></tr>
+        <tr><td><strong>Dangote Rice</strong></td><td>Integrated (Jigawa/Kano)</td><td>Outgrower model + large-scale milling</td><td><span class="p ok">#1 #3</span></td></tr>
+        <tr><td><strong>NCRI / AfricaRice</strong></td><td>Research + seed</td><td>FARO varieties, NERICA development</td><td><span class="p warn">#4 upstream</span></td></tr>
+        <tr><td><strong>CBN / NIRSAL</strong></td><td>Ag finance</td><td>Anchor Borrowers Programme — mixed results</td><td><span class="p warn">#5 finance</span></td></tr>
+        <tr><td><strong>Hello Tractor / TROTRO</strong></td><td>Mechanisation platforms</td><td>Uber-for-tractors model, GPS scheduling</td><td><span class="p ok">#2 delivery</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="c">
+    <h2>Site-visit / validation questions</h2>
+    <div class="g2">
+      <div>
+        <h3>A. Production reality</h3>
+        <ul>
+          <li><strong>Actual paddy production?</strong> ~5M or ~8M MT?</li>
+          <li><strong>Insecurity impact?</strong> Which basins lost?</li>
+          <li><strong>Irrigated vs rainfed share?</strong></li>
+          <li><strong>Fertiliser actual cost/ha?</strong></li>
+          <li><strong>Seed quality?</strong> How many seasons recycled?</li>
+        </ul>
+        <h3>B. Milling economics</h3>
+        <ul>
+          <li><strong>Recovery rate?</strong> Actual vs claimed?</li>
+          <li><strong>Energy cost/t milled?</strong></li>
+          <li><strong>Utilisation rate?</strong> Why idle?</li>
+          <li><strong>Paddy procurement cost?</strong></li>
+          <li><strong>Can compete vs import at what price?</strong></li>
+        </ul>
+      </div>
+      <div>
+        <h3>C. Import ban mechanics</h3>
+        <ul>
+          <li><strong>Benin flow volume?</strong> Real estimate?</li>
+          <li><strong>Consumer price premium?</strong> Local vs import?</li>
+          <li><strong>Ban permanence?</strong> Any review planned?</li>
+          <li><strong>ECOWAS tariff structure?</strong></li>
+          <li><strong>Quality perception:</strong> local vs import?</li>
+        </ul>
+        <h3>D. Investment appetite</h3>
+        <ul>
+          <li><strong>CBN Anchor Borrowers:</strong> why mixed?</li>
+          <li><strong>Private mill investment</strong> pipeline?</li>
+          <li><strong>DFI activity in rice?</strong> IFC, AfDB?</li>
+          <li><strong>FX risk:</strong> Naira for paddy, USD for parts?</li>
+          <li><strong>State-level champions — who?</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="kill">
+    <div class="h">REFRAME OR ABANDON IF 2+ TRUE:</div>
+    <ul>
+      <li>Insecurity expands to additional major rice basins (Benue, Niger, Kebbi)</li>
+      <li>Paddy production falls below 4MMT (irrecoverable without security)</li>
+      <li>Consumer quality gap cannot close — local rice rejected at import-competitive price</li>
+      <li>Import ban lifted without transition plan — flooding destroys local mills</li>
+      <li>FX crisis makes imported inputs (machinery, seed) unaffordable</li>
+    </ul>
+  </div>
+
+  <div class="c">
+    <h3 style="color:var(--a)">⚠ Mali was assessed and EXCLUDED</h3>
+    <ul>
+      <li class="red"><strong>ECOWAS exit</strong> — trade integration broken</li>
+      <li class="red"><strong>Military government</strong> — political instability</li>
+      <li class="red"><strong>Yield 1.8 t/ha</strong> — below Nigeria</li>
+      <li><strong>Production exists</strong> (Office du Niger) but corridor logic fails without ECOWAS</li>
+    </ul>
+  </div>
+
+  <div class="ft">Sources: AFSTI 4-Scenario Rice Model (Jan 2026) · Updated Nigeria/Mali Rice Analysis PDF (project file) · Dr. Olurotimi Fashola interview (LASG) · SteerCo Materials (Feb–Mar 2026) · USDA FAS Nigeria · FAO/IFPRI 2050 Projections · FEWS NET · Sofala Partners PEA Report (Sept 2025)</div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+function go(i){
+  document.querySelectorAll('.tb').forEach((t,x)=>t.classList.toggle('on',x===i));
+  document.querySelectorAll('.sec').forEach((s,x)=>s.classList.toggle('on',x===i));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

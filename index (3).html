@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AFSTI | Portfolio Home</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --agra:#00A67E;        /* AGRA green accent */
+  --agra2:#006B54;
+  --bg0:#070A0F;
+  --bg1:#0B111A;
+  --card:#0F1724;
+  --card2:#101B2A;
+  --text:#EAF2FF;
+  --muted:#A9B6C8;
+  --line:#203047;
+  --gold:#F7B500;
+  --bad:#FF5D5D;
+  --amber:#F57C00;
+  --ok:#67D37A;
+  --shadow: 0 18px 45px rgba(0,0,0,.45);
+  --radius:18px;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:var(--sans);
+  background: radial-gradient(1200px 520px at 15% -10%, rgba(0,166,126,.18), rgba(0,0,0,0)),
+              radial-gradient(900px 520px at 85% -10%, rgba(247,181,0,.12), rgba(0,0,0,0)),
+              linear-gradient(180deg,var(--bg0),var(--bg1));
+  color:var(--text);
+}
+a{color:#B9F6E8;text-decoration:none}
+a:hover{text-decoration:underline}
+.header{
+  padding:26px 28px 16px;
+  border-bottom:1px solid var(--line);
+  background: linear-gradient(180deg, rgba(16,27,42,.92), rgba(11,17,26,.55));
+  position:sticky; top:0; z-index:50;
+  backdrop-filter: blur(6px);
+}
+.title-row{display:flex;justify-content:space-between;gap:16px;align-items:flex-end;flex-wrap:wrap}
+h1{margin:0;font-size:20px;letter-spacing:.2px}
+.subtitle{margin-top:6px;color:var(--muted);font-size:12.5px;max-width:1100px;line-height:1.35}
+.tag{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 12px;border:1px solid rgba(0,166,126,.35);
+  background:rgba(0,166,126,.10);border-radius:999px;
+  font-size:11px;color:#DFFEF7; white-space:nowrap
+}
+.container{max-width:1240px;margin:0 auto;padding:18px 28px 40px}
+.tabs{
+  display:flex;gap:10px;flex-wrap:wrap;margin-top:12px
+}
+.tab{
+  cursor:pointer;user-select:none;
+  padding:9px 12px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(255,255,255,.02);
+  color:var(--muted);font-size:12.5px;font-weight:650
+}
+.tab.active{
+  border-color:rgba(0,166,126,.42);
+  background:rgba(0,166,126,.14);
+  color:#EAFFFA
+}
+.panel{
+  background:linear-gradient(180deg, rgba(15,23,36,.92), rgba(16,27,42,.80));
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:16px;
+}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.col-12{grid-column:span 12}
+.col-8{grid-column:span 8}
+.col-6{grid-column:span 6}
+.col-4{grid-column:span 4}
+@media (max-width:1000px){.col-8,.col-6,.col-4{grid-column:span 12}}
+.h2{
+  display:flex;align-items:center;gap:10px;margin:0 0 10px;
+  font-size:14px;letter-spacing:.2px
+}
+.badge{
+  font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;
+  padding:4px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)
+}
+.badge.ok{border-color:rgba(103,211,122,.42);background:rgba(103,211,122,.08);color:#DFFFE7}
+.badge.warn{border-color:rgba(247,181,0,.42);background:rgba(247,181,0,.08);color:#FFE7A6}
+.badge.bad{border-color:rgba(255,93,93,.42);background:rgba(255,93,93,.08);color:#FFD0D0}
+.badge.neu{border-color:rgba(120,160,255,.42);background:rgba(120,160,255,.08);color:#D6E4FF}
+p{margin:8px 0;color:var(--muted);line-height:1.45;font-size:12.8px}
+ul{margin:8px 0 0 18px;color:var(--muted);font-size:12.8px;line-height:1.45}
+li{margin:4px 0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media (max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{
+  border:1px solid var(--line);border-radius:14px;padding:12px;background:rgba(0,0,0,.18)
+}
+.kpi .l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.kpi .v{margin-top:6px;font-size:18px;font-weight:800;color:#EAFFFA}
+.kpi .n{margin-top:6px;font-size:11px;color:var(--muted);line-height:1.35}
+.hr{height:1px;background:var(--line);margin:14px 0}
+.small{font-size:11.5px}
+.table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:10px}
+.table th,.table td{padding:9px 10px;border-bottom:1px solid var(--line);font-size:12px;vertical-align:top}
+.table th{background:rgba(0,166,126,.10);color:#EAFFFA;text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.4px}
+.table td{background:rgba(0,0,0,.16);color:var(--muted)}
+.table tr:last-child td{border-bottom:none}
+.num{font-variant-numeric:tabular-nums;font-family:var(--mono);color:#EAFFFA;font-weight:750}
+.callout{
+  border:1px solid var(--line);border-left:4px solid var(--agra);
+  background:rgba(0,166,126,.06);
+  border-radius:14px;padding:12px;margin-top:10px
+}
+.callout.warn{border-left-color:var(--gold);background:rgba(247,181,0,.06)}
+.callout.bad{border-left-color:var(--bad);background:rgba(255,93,93,.06)}
+.callout .t{font-weight:850;color:#EAFFFA;font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.pill{font-size:10px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;padding:4px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.pill.loss{border-color:rgba(255,93,93,.42);background:rgba(255,93,93,.08);color:#FFD0D0}
+.pill.bind{border-color:rgba(247,181,0,.42);background:rgba(247,181,0,.08);color:#FFE7A6}
+.pill.proj{border-color:rgba(103,211,122,.42);background:rgba(103,211,122,.08);color:#DFFFE7}
+
+/* simple bar viz */
+.bars{margin-top:10px}
+.bar{display:grid;grid-template-columns:220px 1fr 70px;gap:10px;align-items:center;margin:8px 0}
+@media (max-width:900px){.bar{grid-template-columns:1fr} .bar .r{text-align:left}}
+.bar .lbl{font-size:12px;color:var(--muted)}
+.track{height:22px;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.fill{height:100%;display:flex;align-items:center;padding-left:10px;font-size:10px;font-weight:900;letter-spacing:.4px;text-transform:uppercase}
+.fill.ok{background:rgba(103,211,122,.35);color:#062016}
+.fill.warn{background:rgba(247,181,0,.35);color:#231a00}
+.fill.bad{background:rgba(255,93,93,.35);color:#240000}
+.bar .r{font-size:11px;color:#EAFFFA;text-align:right;font-family:var(--mono)}
+
+/* nested tabs */
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 10px}
+.subtab{cursor:pointer;user-select:none;padding:7px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.02);color:var(--muted);font-size:11.5px;font-weight:700}
+.subtab.active{border-color:rgba(120,160,255,.42);background:rgba(120,160,255,.10);color:#EAF2FF}
+.section{display:none}
+.section.active{display:block}
+.subsection{display:none}
+.subsection.active{display:block}
+
+.footer{margin-top:16px;color:var(--muted);font-size:11px}
+
+.hero{padding:18px 0 10px}
+.hero h2{margin:0;font-size:16px}
+.hero p{max-width:1100px}
+.cards{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.vc{grid-column:span 6}
+@media (max-width:1000px){.vc{grid-column:span 12}}
+.cardtop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.vctitle{font-size:14px;font-weight:850;margin:0}
+.meta{color:var(--muted);font-size:11.5px;margin-top:4px}
+.k{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.k span{padding:4px 8px;border-radius:999px;border:1px solid var(--line);font-size:10px;font-weight:900;letter-spacing:.35px;text-transform:uppercase;color:var(--muted)}
+.k .g{border-color:rgba(0,166,126,.5);background:rgba(0,166,126,.10);color:#EAFFFA}
+.k .a{border-color:rgba(247,181,0,.5);background:rgba(247,181,0,.10);color:#FFE7A6}
+.k .r{border-color:rgba(255,93,93,.5);background:rgba(255,93,93,.10);color:#FFD0D0}
+.dyn{border:1px dashed rgba(247,181,0,.45);background:rgba(247,181,0,.06);border-radius:14px;padding:10px;margin-top:10px}
+.dyn b{color:#FFE7A6}
+.chk{display:flex;gap:8px;align-items:flex-start;margin:6px 0;color:var(--muted);font-size:12.2px}
+.chk input{margin-top:2px}
+.smalllink{font-size:12px}
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="title-row">
+      <div>
+        <h1>AFSTI Investment Cases — Partner Home (Living Fact Base)</h1>
+        <div class="subtitle">Read this page only to get the latest direction. Each VC link contains the full ecosystem map, value-loss view, trade constraints, and brick-level projects.</div>
+      </div>
+      <div class="tag">AGRA green · Dark template · Dynamic assumptions</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="panel hero">
+      <div class="h2">Portfolio headline <span class="badge neu">WHAT’S CHANGING</span></div>
+      <ul>
+        <li>We are shifting from “value chain descriptions” to <b>trade system theses</b>: project → constraint → corridor reliability → volume unlocked.</li>
+        <li>Every VC is judged on <b>risk-adjusted delivered competitiveness</b> (working capital, import risk premium, switching costs) — not only farmgate price.</li>
+        <li>We will explicitly <b>abandon</b> VCs where the economics do not clear after political economy and buyer behavior are included.</li>
+      </ul>
+      <div class="dyn">
+        <b>Dynamic items to confirm (partners can track):</b>
+        <div class="chk"><input type="checkbox" id="d1"><label for="d1">Malawi/DRC protein meal deficit magnitude (drives Zambia soya economics)</label></div>
+        <div class="chk"><input type="checkbox" id="d2"><label for="d2">Nigeria rice export policy credibility mechanism (avoiding blanket bans)</label></div>
+        <div class="chk"><input type="checkbox" id="d3"><label for="d3">Buyer spec/taste switching feasibility (Nigeria → target markets)</label></div>
+      </div>
+    </div>
+
+    <div class="cards">
+      <div class="panel vc">
+        <div class="cardtop">
+          <div>
+            <p class="vctitle">Zambia Soya — Idle Crushers → Regional Meal Corridor</p>
+            <div class="meta">Lobito–Upper Rift · Core logic: meal offtake unlocks crushing utilization</div>
+          </div>
+          <span class="badge ok">PRIORITY</span>
+        </div>
+        <div class="k"><span class="g">Aggregation gap</span><span class="g">Meal offtake</span><span class="a">Border variance</span></div>
+        <ul>
+          <li>Co-product reality: meal clearance is the economic driver.</li>
+          <li>Don’t build new plants — fix aggregation + contracts + corridor reliability.</li>
+          <li>Named private movers: ETG/Parrogate, Alliance Ginneries, Zamanita, Mount Meru.</li>
+        </ul>
+        <div class="smalllink"><a href="vc_soya_zambia.html">Open VC page →</a></div>
+      </div>
+
+      <div class="panel vc">
+        <div class="cardtop">
+          <div>
+            <p class="vctitle">Nigeria Rice — Exportability via Product Development + Quality System</p>
+            <div class="meta">Abidjan–Lagos · High political risk; spec/taste is a testable hypothesis</div>
+          </div>
+          <span class="badge warn">HIGH-RISK</span>
+        </div>
+        <div class="k"><span class="a">Spec mismatch</span><span class="r">Policy volatility</span><span class="a">Buyer switching</span></div>
+        <ul>
+          <li>Not autokilled by taste — must be proven with varietals + mill retrofits + trial shipments.</li>
+          <li>Export charter required to reduce risk premium for investors.</li>
+          <li>Projects focus on drying/grading, WRS, mill retrofits, buyer onboarding.</li>
+        </ul>
+        <div class="smalllink"><a href="vc_rice_nigeria.html">Open VC page →</a></div>
+      </div>
+
+      <div class="panel vc">
+        <div class="cardtop">
+          <div>
+            <p class="vctitle">Tanzania Maize (Template Reference)</p>
+            <div class="meta">Used as structural reference for analysis visuals</div>
+          </div>
+          <span class="badge neu">REFERENCE</span>
+        </div>
+        <ul>
+          <li>Shows the kind of visual components we’re reusing (constraint chain, bars, cards).</li>
+          <li>We are migrating all VC pages to the dark, tabbed template.</li>
+        </ul>
+        <div class="smalllink"><a href="tanzania_maize_supply.html">Open Tanzania template →</a></div>
+      </div>
+
+      <div class="panel vc">
+        <div class="cardtop">
+          <div>
+            <p class="vctitle">Other VCs</p>
+            <div class="meta">Will be migrated to the new template (tabs + nested tabs) next</div>
+          </div>
+          <span class="badge neu">IN PROGRESS</span>
+        </div>
+        <ul>
+          <li>Maize Tanzania, Palm Oil CIV, Poultry Southern Africa, Wheat Zimbabwe, etc.</li>
+          <li>Two VCs already flagged for abandonment in prior pack (cashew; dried pulses) — to revisit with trade logic.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer">Tip: tick/untick the dynamic items — they persist in your browser (localStorage) for SteerCo tracking.</div>
+  </div>
+
+<script>
+  // Persist homepage checkboxes locally
+  ['d1','d2','d3'].forEach(function(id){
+    var el=document.getElementById(id);
+    var v=localStorage.getItem('afsti_'+id);
+    if(v!==null) el.checked = (v==='1');
+    el.addEventListener('change', function(){ localStorage.setItem('afsti_'+id, el.checked?'1':'0'); });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AFSTI | Project Home</title>
+  <style>
+    :root{
+      --bg:#ffffff;
+      --panel:#ffffff;
+      --ink:#0b1220;
+      --muted:#5a677a;
+      --line:#e6e9ef;
+      --green:#0e7a46;
+      --green2:#0b5d36;
+      --amber:#b36b00;
+      --red:#b42318;
+      --chip:#f3f5f9;
+      --shadow:0 8px 28px rgba(15,23,42,.08);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{ box-sizing:border-box; }
+    body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); }
+    .wrap{ padding:18px 18px 28px; max-width:1200px; margin:0 auto; }
+    .head{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+    h1{ margin:0; font-size:20px; letter-spacing:.2px; }
+    .sub{ margin-top:6px; color:var(--muted); font-size:13px; max-width:920px; }
+    .grid{ display:grid; gap:12px; grid-template-columns: repeat(12,1fr); margin-top:14px; }
+    .card{ background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:14px; }
+    .kpi{ grid-column: span 3; }
+    .kpi .v{ font-size:26px; font-weight:800; margin-top:6px; }
+    .kpi .l{ color:var(--muted); font-size:12px; display:flex; align-items:center; justify-content:space-between; gap:8px;}
+    .pill{ font-size:11px; padding:4px 8px; border-radius:999px; background:var(--chip); border:1px solid var(--line); color:var(--muted);}
+    .pill.go{ background:rgba(14,122,70,.08); border-color:rgba(14,122,70,.20); color:var(--green2);}
+    .pill.amb{ background:rgba(179,107,0,.08); border-color:rgba(179,107,0,.20); color:var(--amber);}
+    .pill.stop{ background:rgba(180,35,24,.08); border-color:rgba(180,35,24,.20); color:var(--red);}
+    .sectionTitle{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin:0 0 10px; }
+    .sectionTitle h2{ margin:0; font-size:12px; letter-spacing:.2px; text-transform:uppercase; color:var(--green2); }
+    .muted{ color:var(--muted); font-size:12px; }
+    .mini{ grid-column: span 4; }
+    .mini textarea{ width:100%; border:1px solid var(--line); border-radius:12px; padding:10px 10px; font-size:12px; min-height:92px; resize:vertical; }
+    .table{ grid-column: span 12; padding:0; overflow:hidden; }
+    table{ width:100%; border-collapse:separate; border-spacing:0; font-size:13px; }
+    thead th{ text-align:left; padding:12px 14px; color:var(--muted); font-weight:700; border-bottom:1px solid var(--line); background:#fbfcfe; }
+    tbody td{ padding:12px 14px; border-bottom:1px solid var(--line); vertical-align:top;}
+    tbody tr:hover{ background:#fbfcff; }
+    .vc{ font-weight:800; }
+    .kill{ font-family:var(--mono); font-size:11px; color:#23324a; background:#f6f8fc; border:1px solid var(--line); padding:8px 10px; border-radius:12px; }
+    .owner input{ width:100%; border:1px solid var(--line); border-radius:10px; padding:8px 10px; font-size:12px; }
+    .chips{ display:flex; gap:6px; flex-wrap:wrap; }
+    .chip{ font-size:11px; padding:4px 8px; border-radius:999px; border:1px solid var(--line); background:var(--chip); color:var(--muted); }
+    .why{ margin:0; padding-left:16px; }
+    .why li{ margin:3px 0; color:#1e2a3b; }
+    .foot{ margin-top:10px; color:var(--muted); font-size:12px; display:flex; gap:10px; flex-wrap:wrap; }
+    @media (max-width: 980px){ .kpi{ grid-column: span 6; } .mini{ grid-column: span 12; } }
+    @media (max-width: 640px){
+      .kpi{ grid-column: span 12; }
+      thead{ display:none; }
+      tbody td{ display:block; }
+      tbody tr{ display:block; border-bottom:1px solid var(--line); }
+      tbody td::before{ content:attr(data-h); display:block; color:var(--muted); font-weight:700; font-size:11px; margin-bottom:4px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <h1>Project Home</h1>
+        <div class="sub">
+          Programme delivery cockpit. Portfolio status is defendable only if “kill metrics” are validated. Owners and notes are editable (saved locally in your browser; MVP).
+        </div>
+      </div>
+      <div class="pill" id="lastSaved">Last updated: —</div>
+    </div>
+
+    <div class="grid" id="kpis"></div>
+
+    <div class="grid">
+      <div class="card mini">
+        <div class="sectionTitle"><h2>Critical path (next 7 days)</h2><span class="pill">Editable</span></div>
+        <textarea id="criticalPath" placeholder="3 bullets only: deliverable + owner + date"></textarea>
+      </div>
+      <div class="card mini">
+        <div class="sectionTitle"><h2>Risks / Issues / Decisions</h2><span class="pill">Editable</span></div>
+        <textarea id="risks" placeholder="Top 5 only: issue → decision → owner → due date"></textarea>
+      </div>
+      <div class="card mini">
+        <div class="sectionTitle"><h2>Deliverables tracker</h2><span class="pill">Editable</span></div>
+        <textarea id="deliverables" placeholder="Key outputs + status (e.g., VC HTMLs 2/8, SteerCo draft, interviews…)"></textarea>
+      </div>
+    </div>
+
+    <div class="card table">
+      <div style="padding:14px 14px 0;">
+        <div class="sectionTitle">
+          <h2>Project portfolio (value chains)</h2>
+          <span class="muted">Use Project Portfolio ▾ in the top bar to open a VC page (Thesis view).</span>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width:22%">Value chain</th>
+            <th style="width:10%">Status</th>
+            <th style="width:18%">Core constraint</th>
+            <th style="width:22%">Kill metrics (must be true)</th>
+            <th style="width:14%">Why we might be wrong</th>
+            <th style="width:14%">Owner</th>
+          </tr>
+        </thead>
+        <tbody id="vcRows"></tbody>
+      </table>
+    </div>
+
+    <div class="foot">
+      <span class="chip">Green = execute</span>
+      <span class="chip">Amber = proceed analysis while unresolved</span>
+      <span class="chip">Red = stop / abandon</span>
+      <span class="chip">Notes saved locally (browser)</span>
+    </div>
+  </div>
+
+<script>
+  const DEFAULT_VCS = [{"id": "soya_zmb", "label": "Zambia — Soya (Lobito–Upper Rift)", "status": "GO", "file": "vc_soya_zambia.html"}, {"id": "rice_nga", "label": "Nigeria — Rice (Abidjan–Lagos)", "status": "CONDITIONAL", "file": "vc_rice_nigeria.html"}, {"id": "maize_tza", "label": "Tanzania — Maize (Upper Rift–Lobito)", "status": "CONDITIONAL", "file": "vc_maize_tanzania.html"}, {"id": "palm_civ", "label": "Côte d’Ivoire — Palm Oil (Abidjan–Lagos)", "status": "CONDITIONAL", "file": "vc_palm_oil_civ.html"}, {"id": "poultry_sadc", "label": "Southern Africa — Poultry (Limpopo/SADC)", "status": "CONDITIONAL", "file": "vc_poultry_southern_africa.html"}, {"id": "wheat_zwe", "label": "Zimbabwe — Wheat (Limpopo/Southern_africa)", "status": "CONDITIONAL", "file": "vc_wheat_zimbabwe.html"}, {"id": "cashew_abl", "label": "Abidjan–Lagos — Cashew", "status": "ABANDON", "file": "vc_cashew_abl.html"}, {"id": "pulses_ur", "label": "Upper Rift–Lobito — Dried Pulses", "status": "ABANDON", "file": "vc_dried_pulses_ur_lobito.html"}];
+  const KEY = "afsti_home_state_v2";
+
+  const statusClass = s => (s==="GO" ? "go" : (s==="ABANDON" ? "stop" : "amb"));
+  const statusLabel = s => (s==="GO" ? "GO" : (s==="ABANDON" ? "ABANDON" : "CONDITIONAL"));
+
+  function loadState(){
+    try{
+      const raw = localStorage.getItem(KEY);
+      if(!raw) return { owners:{}, notes:{}, lastSaved:null };
+      return JSON.parse(raw);
+    }catch(e){ return { owners:{}, notes:{}, lastSaved:null }; }
+  }
+  function saveState(st){
+    st.lastSaved = new Date().toISOString();
+    localStorage.setItem(KEY, JSON.stringify(st));
+    document.getElementById("lastSaved").textContent = "Last updated: " + new Date(st.lastSaved).toLocaleString();
+  }
+
+  function computeKpis(vcs){
+    const go = vcs.filter(v=>v.status==="GO").length;
+    const amb = vcs.filter(v=>v.status==="CONDITIONAL").length;
+    const stop = vcs.filter(v=>v.status==="ABANDON").length;
+    return [
+      {label:"GO", value:go, pill:"go"},
+      {label:"CONDITIONAL", value:amb, pill:"amb"},
+      {label:"ABANDON", value:stop, pill:"stop"},
+      {label:"Total VCs", value:vcs.length, pill:""}
+    ];
+  }
+
+  function renderKpis(vcs){
+    const k = computeKpis(vcs);
+    const el = document.getElementById("kpis");
+    el.innerHTML = "";
+    k.forEach(x=>{
+      const d = document.createElement("div");
+      d.className = "card kpi";
+      d.innerHTML = `
+        <div class="l">
+          <span>${x.label}</span>
+          <span class="pill ${x.pill}">${x.label}</span>
+        </div>
+        <div class="v">${x.value}</div>
+      `;
+      el.appendChild(d);
+    });
+  }
+
+  function enrich(vcs){
+    return vcs.map(v=>{
+      if(v.id==="soya_zmb"){
+        return Object.assign({}, v, {
+          core_constraint:["Aggregation gap","Meal sink/offtake","Border reliability"],
+          kill_metrics:[
+            "Malawi+DRC meal deficit ≥ 200k tons/yr",
+            "Delivered ZMB meal ≤ ARG CIF+inland (≤ +$15/t)",
+            "Crushers commit ≥80% utilization conditional on offtake"
+          ],
+          why_wrong:[
+            "Malawi deficit overstated / seasonal only",
+            "Argentina inland economics still cheaper",
+            "Border volatility politically immovable"
+          ]
+        });
+      }
+      if(v.id==="rice_nga"){
+        return Object.assign({}, v, {
+          core_constraint:["Security in producing belts","Policy volatility","Spec mismatch (white vs parboiled)"],
+          kill_metrics:[
+            "Landed export cost ≤ Asia CIF − $15/t (risk-adjusted)",
+            "Policy stability window ≥ 3 years (no ad hoc bans)",
+            "White rice line + varietal pivot feasible at scale"
+          ],
+          why_wrong:[
+            "Security risk constrains scalable surplus",
+            "Export bans/FX shocks persist",
+            "Spec adaptation cost too high"
+          ]
+        });
+      }
+      return Object.assign({}, v, {
+        core_constraint: v.core_constraint || ["TBD"],
+        kill_metrics: v.kill_metrics || ["TBD"],
+        why_wrong: v.why_wrong || ["TBD"]
+      });
+    });
+  }
+
+  function renderTable(vcs, state){
+    const body = document.getElementById("vcRows");
+    body.innerHTML = "";
+    vcs.forEach(vc=>{
+      const tr = document.createElement("tr");
+      const ownerVal = (state.owners && state.owners[vc.id]) ? state.owners[vc.id] : "";
+      tr.innerHTML = `
+        <td data-h="Value chain">
+          <div class="vc">${vc.label}</div>
+          <div class="muted">File: <span style="font-family:var(--mono)">${vc.file}</span></div>
+        </td>
+        <td data-h="Status"><span class="pill ${statusClass(vc.status)}">${statusLabel(vc.status)}</span></td>
+        <td data-h="Core constraint">
+          <div class="chips">
+            ${(vc.core_constraint||["TBD"]).map(x=>`<span class="chip">${x}</span>`).join("")}
+          </div>
+        </td>
+        <td data-h="Kill metrics"><div class="kill">${(vc.kill_metrics||["TBD"]).join("<br>")}</div></td>
+        <td data-h="Why we might be wrong"><ul class="why">${(vc.why_wrong||["TBD"]).map(x=>`<li>${x}</li>`).join("")}</ul></td>
+        <td data-h="Owner" class="owner">
+          <input type="text" placeholder="Team member name" value="${ownerVal}" data-owner="${vc.id}">
+        </td>
+      `;
+      body.appendChild(tr);
+    });
+
+    body.querySelectorAll("input[data-owner]").forEach(inp=>{
+      inp.addEventListener("input", (e)=>{
+        const id = e.target.getAttribute("data-owner");
+        state.owners = state.owners || {};
+        state.owners[id] = e.target.value;
+        saveState(state);
+      });
+    });
+  }
+
+  function bindNotes(state){
+    const cp = document.getElementById("criticalPath");
+    const rk = document.getElementById("risks");
+    const dv = document.getElementById("deliverables");
+
+    cp.value = (state.notes && state.notes.criticalPath) ? state.notes.criticalPath : "";
+    rk.value = (state.notes && state.notes.risks) ? state.notes.risks : "";
+    dv.value = (state.notes && state.notes.deliverables) ? state.notes.deliverables : "";
+
+    function onChange(){
+      state.notes = state.notes || {};
+      state.notes.criticalPath = cp.value;
+      state.notes.risks = rk.value;
+      state.notes.deliverables = dv.value;
+      saveState(state);
+    }
+    cp.addEventListener("input", onChange);
+    rk.addEventListener("input", onChange);
+    dv.addEventListener("input", onChange);
+  }
+
+  const state = loadState();
+  const vcs = enrich(DEFAULT_VCS);
+  renderKpis(vcs);
+  renderTable(vcs, state);
+  bindNotes(state);
+
+  if(state.lastSaved){
+    document.getElementById("lastSaved").textContent = "Last updated: " + new Date(state.lastSaved).toLocaleString();
+  }
+</script>
+</body>
+</html>

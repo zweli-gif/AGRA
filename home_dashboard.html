@@ -65,6 +65,15 @@
   </style>
 </head>
 <body>
+<nav style="display:flex;align-items:center;gap:16px;padding:10px 28px;background:#f3f5f9;border-bottom:1px solid #e6e9ef;font-size:12px;position:sticky;top:0;z-index:100">
+  <a href="index.html" style="color:#0e7a46;font-weight:800;text-decoration:none;letter-spacing:.3px">AFSTI</a>
+  <span style="color:#ccc">|</span>
+  <a href="vc_soya_zambia.html" style="color:#5a677a;text-decoration:none">Zambia Soya</a>
+  <a href="vc_rice_nigeria_short.html" style="color:#5a677a;text-decoration:none">Nigeria Rice</a>
+  <a href="vc_poultry_malawi.html" style="color:#5a677a;text-decoration:none">Malawi Poultry</a>
+  <a href="vc_wheat_zimbabwe_short.html" style="color:#5a677a;text-decoration:none">Zimbabwe Wheat</a>
+  <a href="home_dashboard.html" style="color:#0e7a46;font-weight:700;text-decoration:none;margin-left:auto">Project Home</a>
+</nav>
   <div class="wrap">
     <div class="head">
       <div>
@@ -125,7 +134,7 @@
   </div>
 
 <script>
-  const DEFAULT_VCS = [{"id": "soya_zmb", "label": "Zambia — Soya (Lobito–Upper Rift)", "status": "GO", "file": "vc_soya_zambia.html"}, {"id": "rice_nga", "label": "Nigeria — Rice (Abidjan–Lagos)", "status": "CONDITIONAL", "file": "vc_rice_nigeria.html"}, {"id": "maize_tza", "label": "Tanzania — Maize (Upper Rift–Lobito)", "status": "CONDITIONAL", "file": "vc_maize_tanzania.html"}, {"id": "palm_civ", "label": "Côte d’Ivoire — Palm Oil (Abidjan–Lagos)", "status": "CONDITIONAL", "file": "vc_palm_oil_civ.html"}, {"id": "poultry_sadc", "label": "Southern Africa — Poultry (Limpopo/SADC)", "status": "CONDITIONAL", "file": "vc_poultry_southern_africa.html"}, {"id": "wheat_zwe", "label": "Zimbabwe — Wheat (Limpopo/Southern_africa)", "status": "CONDITIONAL", "file": "vc_wheat_zimbabwe.html"}, {"id": "cashew_abl", "label": "Abidjan–Lagos — Cashew", "status": "ABANDON", "file": "vc_cashew_abl.html"}, {"id": "pulses_ur", "label": "Upper Rift–Lobito — Dried Pulses", "status": "ABANDON", "file": "vc_dried_pulses_ur_lobito.html"}];
+  const DEFAULT_VCS = [{"id": "soya_zmb", "label": "Zambia — Soya (Lobito–Upper Rift)", "status": "GO", "file": "vc_soya_zambia.html"}, {"id": "rice_nga", "label": "Nigeria — Rice (Abidjan–Lagos)", "status": "CONDITIONAL", "file": "vc_rice_nigeria_short.html"}, {"id": "poultry_sadc", "label": "Malawi — Poultry (Limpopo–Southern Africa)", "status": "CONDITIONAL", "file": "vc_poultry_malawi.html"}, {"id": "wheat_zwe", "label": "Zimbabwe — Wheat (Limpopo–Southern Africa)", "status": "CONDITIONAL", "file": "vc_wheat_zimbabwe_short.html"}, {"id": "maize_tza", "label": "Tanzania — Maize (Upper Rift–Lobito)", "status": "CONDITIONAL", "file": ""}, {"id": "palm_civ", "label": "Côte d'Ivoire — Palm Oil (Abidjan–Lagos)", "status": "CONDITIONAL", "file": ""}, {"id": "cashew_abl", "label": "Abidjan–Lagos — Cashew", "status": "ABANDON", "file": ""}, {"id": "pulses_ur", "label": "Upper Rift–Lobito — Dried Pulses", "status": "ABANDON", "file": ""}];
   const KEY = "afsti_home_state_v2";
 
   const statusClass = s => (s==="GO" ? "go" : (s==="ABANDON" ? "stop" : "amb"));

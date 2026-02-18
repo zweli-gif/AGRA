@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AFSTI | Poultry | Malawi (Limpopo–Southern Africa)</title>
+<style>
+  :root{
+    --agra:#1B5E20;
+    --agra2:#2E7D32;
+    --bg:#ffffff;
+    --panel:#f8faf8;
+    --panel2:#f3f7f4;
+    --text:#1a1a1a;
+    --muted:#555555;
+    --warn:#b8860b;
+    --bad:#c0392b;
+    --ok:#1B5E20;
+    --line:#d4ddd6;
+    --shadow: 0 4px 16px rgba(0,0,0,.08);
+    --radius:18px;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#ffffff;color:var(--text);font-family:var(--sans)}
+  a{color:var(--agra);text-decoration:none}
+  .header{
+    padding:28px 28px 18px;
+    background: linear-gradient(180deg, #f0f7f1 0%, #ffffff 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .title-row{display:flex;gap:14px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap}
+  h1{margin:0;font-size:22px;letter-spacing:.2px;color:var(--agra)}
+  .subtitle{color:var(--muted);font-size:13px}
+  .tag{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:8px 12px;border:1px solid rgba(27,94,32,.3);
+    background:rgba(27,94,32,.06);border-radius:999px;
+    font-size:12px;color:var(--agra)
+  }
+  .container{padding:20px 28px 36px;max-width:1200px;margin:0 auto}
+  .nav{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 18px}
+  .tab{
+    cursor:pointer;user-select:none;
+    padding:10px 12px;border-radius:999px;border:1px solid var(--line);
+    background:#fff;color:var(--muted);font-size:13px
+  }
+  .tab.active{background:rgba(27,94,32,.08);border-color:rgba(27,94,32,.4);color:var(--agra);font-weight:600}
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+  .card{
+    grid-column:span 12;
+    background:#fff;
+    border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+    padding:16px 16px 14px;
+  }
+  .card h2{margin:0 0 6px;font-size:16px;color:var(--agra)}
+  .card p{margin:8px 0;color:var(--text);line-height:1.45;font-size:13px}
+  .kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+  .kpi .box{
+    border:1px solid var(--line); border-radius:14px; padding:12px;
+    background:var(--panel)
+  }
+  .kpi .label{font-size:11px;color:var(--muted)}
+  .kpi .value{font-size:18px;margin-top:6px;color:var(--agra)}
+  .kpi .note{font-size:11px;color:var(--muted);margin-top:6px}
+  .pill{display:inline-block;padding:4px 8px;border-radius:999px;font-size:11px;margin-left:8px}
+  .pill.ok{background:rgba(27,94,32,.08);border:1px solid rgba(27,94,32,.3);color:var(--agra)}
+  .pill.warn{background:rgba(184,134,11,.08);border:1px solid rgba(184,134,11,.3);color:#8B6914}
+  .pill.bad{background:rgba(192,57,43,.06);border:1px solid rgba(192,57,43,.3);color:#c0392b}
+  .two{grid-column:span 12;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:900px){.kpi{grid-template-columns:repeat(2,1fr)} .two{grid-template-columns:1fr}}
+  .table{width:100%;border-collapse:separate;border-spacing:0;margin-top:10px;overflow:hidden;border-radius:14px;border:1px solid var(--line)}
+  .table th,.table td{padding:10px 10px;border-bottom:1px solid var(--line);font-size:12px}
+  .table th{background:rgba(27,94,32,.06);text-align:left;color:var(--agra);font-weight:600}
+  .table td{color:var(--text);background:#fff}
+  .table tr:last-child td{border-bottom:none}
+  .mono{font-family:var(--mono)}
+  .callout{
+    border-radius:14px;border:1px solid var(--line);
+    padding:12px 12px;background:var(--panel);margin-top:10px
+  }
+  .callout .t{font-weight:700;color:var(--agra);font-size:12px;margin-bottom:6px}
+  .callout.good{border-color:rgba(27,94,32,.3);background:rgba(27,94,32,.04)}
+  .callout.warn{border-color:rgba(184,134,11,.3);background:rgba(184,134,11,.04)}
+  .callout.bad{border-color:rgba(192,57,43,.3);background:rgba(192,57,43,.04)}
+  .callout.bad .t{color:#c0392b}
+  .callout.warn .t{color:#8B6914}
+  .section{display:none}
+  .section.active{display:block}
+  .map{
+    display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:12px
+  }
+  .node{
+    border:1px solid var(--line);border-radius:16px;padding:12px;background:var(--panel);
+    position:relative; min-height:120px
+  }
+  .node .h{font-size:12px;color:var(--agra);font-weight:700}
+  .node .sub{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.35}
+  .flag{
+    position:absolute;top:10px;right:10px;font-size:10px;padding:4px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)
+  }
+  .flag.loss{border-color:rgba(192,57,43,.3);background:rgba(192,57,43,.06);color:#c0392b}
+  .flag.bind{border-color:rgba(184,134,11,.3);background:rgba(184,134,11,.06);color:#8B6914}
+  .flag.proj{border-color:rgba(27,94,32,.3);background:rgba(27,94,32,.06);color:var(--agra)}
+  .footer{margin-top:18px;color:var(--muted);font-size:11px}
+  .small{font-size:12px}
+  .bar-container{margin-top:10px}
+  .bar-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+  .bar-label{font-size:11px;color:var(--muted);width:90px;text-align:right;flex-shrink:0}
+  .bar-track{flex:1;height:18px;background:rgba(0,0,0,.05);border-radius:9px;overflow:hidden;position:relative}
+  .bar-fill{height:100%;border-radius:9px;display:flex;align-items:center;justify-content:flex-end;padding-right:6px;font-size:10px;color:#fff;font-weight:600}
+  .bar-fill.green{background:linear-gradient(90deg,rgba(27,94,32,.5),rgba(27,94,32,.8))}
+  .bar-fill.red{background:linear-gradient(90deg,rgba(192,57,43,.5),rgba(192,57,43,.8))}
+  .bar-fill.amber{background:linear-gradient(90deg,rgba(184,134,11,.5),rgba(184,134,11,.8))}
+</style>
+</head>
+<body>
+<nav style="display:flex;align-items:center;gap:16px;padding:10px 28px;background:#f3f5f9;border-bottom:1px solid #dde3dd;font-size:12px;position:sticky;top:0;z-index:100"><a href="index.html" style="color:#0e7a46;font-weight:800;text-decoration:none;letter-spacing:.3px">AFSTI</a><span style="color:#ccc">|</span><a href="vc_soya_zambia.html" style="color:#5a677a;text-decoration:none">Zambia Soya</a><a href="vc_rice_nigeria_short.html" style="color:#5a677a;text-decoration:none">Nigeria Rice</a><a href="vc_poultry_malawi.html" style="color:#0e7a46;font-weight:700;text-decoration:none">Malawi Poultry</a><a href="vc_wheat_zimbabwe_short.html" style="color:#5a677a;text-decoration:none">Zimbabwe Wheat</a><a href="home_dashboard.html" style="color:#5a677a;text-decoration:none;margin-left:auto">Project Home</a></nav>
+  <div class="header">
+    <div class="title-row">
+      <div>
+        <h1>Malawi Poultry – From Village Flocks to Regional Protein Corridor</h1>
+        <div class="subtitle">Limpopo–Southern Africa corridor · VC page with ecosystem map, value loss, trade constraints, investable projects, and field-test plan</div>
+      </div>
+      <div class="tag">AGRA · AFSTI · VC Fact Base</div>
+    </div>
+
+    <div class="nav" id="nav">
+      <div class="tab active" onclick="show(0)">1) Governing thought</div>
+      <div class="tab" onclick="show(1)">2) System physics</div>
+      <div class="tab" onclick="show(2)">3) Ecosystem & value loss map</div>
+      <div class="tab" onclick="show(3)">4) 5 brick-level projects</div>
+      <div class="tab" onclick="show(4)">5) Private players + why they invest</div>
+      <div class="tab" onclick="show(5)">6) Site-visit tests</div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- ============================================================ -->
+    <!-- SECTION 1: GOVERNING THOUGHT                                 -->
+    <!-- ============================================================ -->
+    <div class="section active" id="s0">
+      <div class="card">
+        <h2>Governing thought <span class="pill warn">Binding constraint = feed cost + export-grade processing capacity</span></h2>
+        <p>
+          Malawi is already Africa's 9th-largest poultry producer and has demonstrated sharp export momentum — <strong>poultry exports surged 5× from $2M (2021) to $10M (2024)</strong>.
+          But the system under-performs because <strong>feed constitutes 60–70% of production costs</strong> and soybean prices are volatile (up 48% in H2 2024 alone), while
+          <strong>export-certified processing and cold chain are absent at scale</strong>. The result: Malawi sits next to a ~350kt regional protein deficit (Mozambique, Angola, DRC)
+          but cannot capture it.
+        </p>
+        <p>
+          The investment thesis is: <strong>fix feed economics (via Zambia soya corridor linkage), build export-certified processing, and install cold chain on the Nacala and Beira corridors</strong>.
+          If Malawi captures even a third of current Mozambique + Angola poultry imports, that is ~$150M in trade value and ~83,000 jobs created.
+        </p>
+
+        <div class="kpi">
+          <div class="box">
+            <div class="label">Malawi production (2024)</div>
+            <div class="value">~83kt</div>
+            <div class="note">Projected to 130kt by 2030 with policy support (AGRA/PIAM Delivery Lab, Nov 2025).</div>
+          </div>
+          <div class="box">
+            <div class="label">Malawi consumption</div>
+            <div class="value">~71kt</div>
+            <div class="note">3.16 kg/capita — low by regional standards. Surplus ~12kt available for export today.</div>
+          </div>
+          <div class="box">
+            <div class="label">Regional deficit (addressable)</div>
+            <div class="value">~350kt</div>
+            <div class="note">Moz: 50kt, Angola: 258kt, DRC: 68kt, Lesotho: 23kt, Botswana: 20kt imports.</div>
+          </div>
+          <div class="box">
+            <div class="label">Feed cost share</div>
+            <div class="value">60–70%</div>
+            <div class="note">Soybean prices surged 48% (May–Nov 2024). Malawi imports most soy meal. This is the #1 P&L lever.</div>
+          </div>
+        </div>
+
+        <div class="callout good">
+          <div class="t">Why Malawi, not South Africa?</div>
+          <p class="small">
+            SA produces 1,590kt but is itself a 320kt net importer (from Brazil/USA). SA's cost structure is high for regional export — tariff-protected at 62% MFN, optimised for domestic margin not regional price competition.
+            Malawi has lower labour costs, SADC tariff-free access, proximity to Mozambique (Nacala corridor), and an AGRA-backed policy reform process already underway.
+            The strategic logic: Malawi as a <strong>regional processing hub</strong> fed by Zambia soya meal via the Lobito–Upper Rift corridor — linking two AFSTI investment cases into one protein supply chain.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 2: SYSTEM PHYSICS                                     -->
+    <!-- ============================================================ -->
+    <div class="section" id="s1">
+      <div class="card">
+        <h2>System physics — where does the cost sit?</h2>
+        <p>
+          Poultry economics are simple: <strong>feed × conversion ratio × mortality</strong> determines farmgate cost.
+          Processing, cold chain, and border logistics determine whether that bird reaches a deficit market at a competitive price.
+          The numbers below show where value leaks and what reform can do.
+        </p>
+
+        <table class="table">
+          <thead>
+            <tr><th>Cost bucket</th><th>Component</th><th>Current $/t (live weight equiv.)</th><th>Reformed $/t</th><th>Saving</th><th>Lever</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="3"><strong>A: Feed</strong></td>
+              <td>Soy meal (imported)</td><td class="mono">$420</td><td class="mono">$340</td><td class="mono">-$80</td>
+              <td>Zambia corridor soy meal at $470/t advantage vs seaborne; reduce from $700→$560/t for meal, flows through to bird cost</td>
+            </tr>
+            <tr>
+              <td>Maize (local)</td><td class="mono">$180</td><td class="mono">$150</td><td class="mono">-$30</td>
+              <td>Remove VAT on feed maize; stabilise procurement via aggregation hubs</td>
+            </tr>
+            <tr>
+              <td>Premix & micro-nutrients</td><td class="mono">$60</td><td class="mono">$55</td><td class="mono">-$5</td>
+              <td>Bulk import through feed mill; currently fragmented retail purchase</td>
+            </tr>
+            <tr>
+              <td rowspan="2"><strong>B: Production</strong></td>
+              <td>Day-old chicks (DOC)</td><td class="mono">$180</td><td class="mono">$140</td><td class="mono">-$40</td>
+              <td>Modern hatchery investment; current hatch rate ~75% → 85% with temperature/humidity control</td>
+            </tr>
+            <tr>
+              <td>Mortality & FCR penalty</td><td class="mono">$120</td><td class="mono">$70</td><td class="mono">-$50</td>
+              <td>Biosecurity + contract farming platform: mortality 12% → 6%, FCR 2.0 → 1.75</td>
+            </tr>
+            <tr>
+              <td rowspan="2"><strong>C: Processing</strong></td>
+              <td>Slaughter & cutting</td><td class="mono">$90</td><td class="mono">$65</td><td class="mono">-$25</td>
+              <td>Brownfield upgrade to export-certified line: throughput ↑, compliance cost ↓ per unit</td>
+            </tr>
+            <tr>
+              <td>Cold storage & packaging</td><td class="mono">$70</td><td class="mono">$50</td><td class="mono">-$20</td>
+              <td>Shared cold hub at Lilongwe/Blantyre; currently each processor self-funds sub-scale cold rooms</td>
+            </tr>
+            <tr>
+              <td rowspan="2"><strong>D: Logistics to sink</strong></td>
+              <td>Domestic aggregation → border</td><td class="mono">$45</td><td class="mono">$35</td><td class="mono">-$10</td>
+              <td>Refrigerated truck fleet on Lilongwe–Blantyre–Tete route (Nacala corridor)</td>
+            </tr>
+            <tr>
+              <td>Border + last mile to Maputo/Beira</td><td class="mono">$55</td><td class="mono">$40</td><td class="mono">-$15</td>
+              <td>SPS pre-clearance; SADC tariff = 0%; reduce border dwell from 3 days → 1 day</td>
+            </tr>
+            <tr style="background:rgba(27,94,32,.12)">
+              <td colspan="2"><strong>TOTAL LANDED COST (Maputo)</strong></td>
+              <td class="mono"><strong>$1,220</strong></td>
+              <td class="mono"><strong>$945</strong></td>
+              <td class="mono"><strong>-$275</strong></td>
+              <td><strong>-22.5% cost reduction; benchmark Brazil landed $1,100/t</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout good">
+          <div class="t">Verdict: Reformed Malawi poultry can undercut Brazilian imports by ~14%</div>
+          <p class="small">
+            Brazil lands frozen chicken leg quarters in Maputo at ~$1,100/t (CIF + duty). Reformed Malawi cost of $945/t delivers a $155/t margin,
+            <strong>plus</strong> freshness premium (5–10 day lead time vs 45–60 day sea voyage), proximity for just-in-time supply,
+            and SADC rules-of-origin compliance for institutional buyers. This is a structurally viable corridor play.
+          </p>
+        </div>
+
+        <div class="callout warn">
+          <div class="t">Sensitivity: Feed cost is the kill switch</div>
+          <p class="small">
+            A 20% increase in soy meal price (which happened in 2024) would push landed cost from $945 → $1,013/t — still competitive but margin-thin.
+            A 40% spike (as seen during drought years) pushes to $1,080/t — essentially at parity with Brazil, eliminating the proximity advantage.
+            <strong>This is why Project #1 (feed formulation hub linked to Zambia soya) is the foundation</strong>; without stable feed economics, nothing else works.
+          </p>
+        </div>
+
+        <!-- DEMAND FIT ANALYSIS -->
+        <div style="margin-top:20px;padding-top:14px;border-top:1px solid var(--line)">
+          <h2>Demand-side fit: are we producing what these markets actually buy?</h2>
+          <p>
+            The supply economics above are meaningless if Malawi produces the wrong product for the target market.
+            Each demand sink buys a specific <strong>format</strong> (frozen vs chilled), <strong>cut</strong> (whole bird vs portions vs leg quarters), and <strong>size spec</strong> — and these differ dramatically by market.
+            Getting this wrong is not a rounding error; it is a <strong>thesis-breaking mismatch</strong>.
+          </p>
+
+          <table class="table" style="margin-top:10px">
+            <thead><tr>
+              <th>Demand sink</th><th>What they actually buy</th><th>Format</th><th>Cut spec</th><th>Bird size / weight</th><th>Can Malawi match this?</th>
+            </tr></thead>
+            <tbody>
+              <tr>
+                <td><strong>Angola</strong><br/>258kt, $280M</td>
+                <td>
+                  <strong>Frozen chicken leg quarters</strong> — this is ~70% of import volume. Street vendors buy by the piece (not by weight) and prefer <em>smaller</em> leg quarters.
+                  Middle/high-income retail buys whole birds (1.1–1.2kg) and specific cuts (wings, drumsticks, breasts, gizzards).
+                  Fresh chicken is 2–3× the price of frozen and has near-zero mass-market demand.
+                </td>
+                <td><span class="pill bad">Frozen only</span></td>
+                <td>Leg quarters (70%), whole birds (15%), other cuts + offal (15%)</td>
+                <td>Small leg quarters preferred by street vendors. US birds are from 2.5–3kg carcasses; smaller portions sell faster.</td>
+                <td><span class="pill bad">Poor fit today</span><br/><span class="small">Malawi produces whole birds for domestic. No IQF leg quarter line. Would need cut-up + blast freeze infrastructure. Also: Angola is 3,000+ km from Malawi — logistics make this aspirational, not primary.</span></td>
+              </tr>
+              <tr>
+                <td><strong>Mozambique</strong><br/>50kt, $60M</td>
+                <td>
+                  <strong>Mixed: frozen portions from Brazil/EU + fresh/chilled whole birds from SA + domestic</strong>.
+                  Formal retail (Shoprite, Game) accepts both frozen and chilled with SPS documentation.
+                  Informal channels want frozen (no cold chain at point of sale).
+                  Maputo/Beira urban consumers increasingly accept chilled if price-competitive.
+                  HORECA (hotels, restaurants) buys specific cuts: breasts, thighs, drumsticks.
+                </td>
+                <td><span class="pill warn">Frozen (informal) / Chilled (formal retail)</span></td>
+                <td>Whole birds (35%), bone-in portions (40%), specific cuts for HORECA (25%)</td>
+                <td>SA exports ~4,000t/yr to Moz: whole birds + mixed portions from 1.8–2.2kg carcasses. This is closer to what Malawi can produce.</td>
+                <td><span class="pill ok">Best fit</span><br/><span class="small">Malawi's proximity (800km to Maputo via Tete) enables chilled product at 3–5 day lead time. Formal retail is the entry point. But processing line must be configured for <strong>portioning</strong> (not just whole bird), and IQF for informal channel.</span></td>
+              </tr>
+              <tr>
+                <td><strong>DRC (Lubumbashi)</strong><br/>68kt demand</td>
+                <td>
+                  <strong>Cheapest possible protein</strong>. Frozen, any format. Very low per-capita consumption (~1 kg/yr). 
+                  Urban Lubumbashi buys frozen portions from whatever origin is cheapest.
+                  No formal SPS enforcement at scale — quality floor is low.
+                </td>
+                <td><span class="pill warn">Frozen</span></td>
+                <td>Any — whole birds, portions, offal. Price is the only variable that matters.</td>
+                <td>No strong preference. Small portions move faster in informal markets.</td>
+                <td><span class="pill warn">Possible but hard</span><br/><span class="small">Reachable via Zambia transit (Lilongwe→Chipata→Lusaka→Lubumbashi). But logistics are 1,500+ km, cold chain must survive, and DRC is a price-floor market with near-zero margin. Secondary target at best.</span></td>
+              </tr>
+              <tr>
+                <td><strong>Lesotho</strong><br/>23kt, $24M</td>
+                <td>
+                  <strong>100% supplied by South Africa</strong>. Buys what SA sells: frozen bone-in portions + whole birds.
+                  SACU member — no tariff barriers.
+                </td>
+                <td><span class="pill warn">Frozen</span></td>
+                <td>SA standard: bone-in portions, whole birds</td>
+                <td>SA standard sizes</td>
+                <td><span class="pill bad">Not viable</span><br/><span class="small">SA has lock on this market via SACU. Malawi has no cost or proximity advantage. Exclude from primary targeting.</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- BREED AND BIRD SIZE -->
+          <div style="margin-top:16px">
+            <h2 style="font-size:14px">Breed & bird size: does Malawi grow the right chicken?</h2>
+            <div class="two" style="margin-top:8px">
+              <div class="callout warn" style="margin:0">
+                <div class="t">What Malawi currently produces</div>
+                <p class="small">
+                  <strong>Commercial sector (Central Poultry, ~49% share):</strong> Likely Ross 308 or Cobb 500 (field visit must confirm). 
+                  Grown to ~1.5–2.0kg live weight in 35–42 days. This yields a ~1.2–1.5kg dressed carcass.
+                  Sold as <strong>whole birds</strong> domestically. No large-scale cut-up operation exists.<br/><br/>
+                  <strong>Smallholder/backyard (86% of production):</strong> Mostly indigenous breeds (Black Australorp crosses, Kuroiler, Sasso, Boschveld) 
+                  plus some dual-purpose birds. Grown to variable weights over 8–16 weeks. Not export-viable — too variable, too slow, wrong economics.<br/><br/>
+                  <strong>Bottom line:</strong> The commercial breed is fine — Ross 308/Cobb 500 are the global standard used by Brazil, US, SA, and EU exporters.
+                  The issue is <strong>not genetics</strong>, it is <strong>grow-out weight and processing configuration</strong>.
+                </p>
+              </div>
+              <div class="callout bad" style="margin:0">
+                <div class="t">The product-market gap</div>
+                <p class="small">
+                  <strong>Gap 1 — Bird size:</strong> Malawi grows to 1.5–2.0kg. Angola's imported leg quarters come from 2.5–3.0kg US birds — much larger.
+                  But Mozambique and informal markets prefer <em>smaller</em> portions (sold by piece). <strong>Malawi's smaller bird is actually a better fit for Mozambique than Brazil's larger bird.</strong>
+                  This is a counterintuitive advantage — validate with Maputo buyers.<br/><br/>
+                  <strong>Gap 2 — Cuts vs whole bird:</strong> Current processing is whole-bird only. Export requires portioning: thighs, drumsticks, wings, breasts separated.
+                  This needs a <strong>cut-up line</strong> in the processing upgrade (#2) — not just slaughter + chill. Estimated additional capex: $1–2M within the $8–15M envelope.<br/><br/>
+                  <strong>Gap 3 — Frozen vs chilled:</strong> Our thesis assumes chilled (freshness premium). But 60%+ of regional demand is frozen.
+                  The processing line <strong>must</strong> have both IQF (frozen for informal/Angola) and air-chill (fresh for Moz formal retail). 
+                  Single-format processing is a strategic error — the line must be dual-capable.<br/><br/>
+                  <strong>Gap 4 — Offal revenue:</strong> In Africa, chicken feet, gizzards, livers, and heads are not waste — they are revenue.
+                  SA's domestic market values offal at 15–20% of carcass revenue. Angola's Chinese community specifically buys chicken feet.
+                  The processing line must capture and package offal separately. This is ~$0.15–0.25/bird in otherwise-lost revenue.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- REVISED MARKET PRIORITISATION -->
+          <div style="margin-top:16px">
+            <h2 style="font-size:14px">Revised market prioritisation based on demand fit</h2>
+            <div class="kpi" style="grid-template-columns:repeat(3,1fr)">
+              <div class="box" style="border-color:rgba(103,211,122,.35)">
+                <div class="label">PRIMARY: Mozambique formal retail</div>
+                <div class="value" style="font-size:14px;color:var(--ok)">Target: 7,000–10,000 t/yr</div>
+                <div class="note">
+                  <strong>Format:</strong> Chilled whole birds + portioned bone-in cuts (thighs, drumsticks, wings) for Shoprite/Game/HORECA.<br/>
+                  <strong>Why it fits:</strong> Malawi's smaller bird matches Moz preference. 3–5 day chilled lead time beats 50-day frozen from Brazil. SADC tariff = 0%. SPS achievable via AGRA Delivery Lab reform track.<br/>
+                  <strong>Revenue at $945/t:</strong> ~$6.6–9.5M/yr.<br/>
+                  <strong>Entry strategy:</strong> Anchor 2–3 offtake contracts with Shoprite Moz + 1 HORECA distributor in Maputo before committing processing capex.
+                </div>
+              </div>
+              <div class="box" style="border-color:rgba(247,181,0,.35)">
+                <div class="label">SECONDARY: Mozambique informal + DRC</div>
+                <div class="value" style="font-size:14px;color:var(--warn)">Target: 3,000–5,000 t/yr</div>
+                <div class="note">
+                  <strong>Format:</strong> IQF frozen portions (small leg quarters, drumsticks) for informal traders and Lubumbashi market.<br/>
+                  <strong>Why it's secondary:</strong> Frozen competes head-on with Brazil on price. Malawi's advantage is proximity and SADC access, but margins are thinner. DRC logistics are hard.<br/>
+                  <strong>Revenue at $850/t (lower price point):</strong> ~$2.5–4.3M/yr.<br/>
+                  <strong>Entry strategy:</strong> Use IQF line at off-peak hours; don't build dedicated frozen capacity until chilled channel is proven.
+                </div>
+              </div>
+              <div class="box" style="border-color:rgba(255,93,93,.35)">
+                <div class="label">ASPIRATIONAL: Angola</div>
+                <div class="value" style="font-size:14px;color:var(--bad)">Not viable in Phase 1</div>
+                <div class="note">
+                  <strong>Why not now:</strong> Angola is 3,000+ km away with no direct corridor. Demand is overwhelmingly frozen leg quarters from industrial-scale US/Brazil supply chains. Angola's importers have 15,000t+ cold storage and containerised logistics that Malawi cannot match.
+                  Malawi's smaller bird produces smaller leg quarters — which Angola vendors actually prefer — but the logistics gap is prohibitive.<br/>
+                  <strong>Revisit if:</strong> Nacala port develops container capacity for frozen export, OR Malawi production reaches 50,000+ t/yr surplus enabling container-scale shipments.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="callout bad" style="margin-top:12px">
+            <div class="t">Demand-side kill conditions (add to field visit)</div>
+            <p class="small">
+              <strong>1. Confirm breed at Central Poultry:</strong> If they're running an indigenous or dual-purpose breed (not Ross/Cobb), the FCR and growth rate assumptions in our model are wrong by 30–50%. This changes everything.<br/>
+              <strong>2. Confirm Mozambique buyer acceptance of Malawian chilled product:</strong> If Shoprite Moz procurement says "we only buy frozen from approved SA/Brazil suppliers," the formal retail entry strategy fails and we're competing in the frozen commodity space only.<br/>
+              <strong>3. Confirm cut-up demand spec:</strong> What exact portions, at what weight range, in what packaging? A whole bird that doesn't sell as portions has ~30% lower revenue per kg than a bird processed into cuts + offal.<br/>
+              <strong>4. Confirm price point:</strong> What does Maputo formal retail pay per kg for (a) chilled whole bird, (b) chilled portions, (c) frozen portions? Our $945/t assumption is supply-derived — we need to confirm it clears the demand-side price threshold.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 3: ECOSYSTEM & VALUE LOSS MAP                         -->
+    <!-- ============================================================ -->
+    <div class="section" id="s2">
+      <div class="card">
+        <h2>Ecosystem & value loss map</h2>
+        <p>Six nodes in the value chain from input supply to regional demand sink. Flags show where value leaks, what binds, and where projects attach.</p>
+
+        <div class="map">
+          <div class="node">
+            <div class="flag bind">BIND</div>
+            <div class="h">1. Feed inputs</div>
+            <div class="sub">
+              <strong>Soy meal:</strong> ~100% imported (SA, global). Price surged 48% in 2024.<br/>
+              <strong>Maize:</strong> Locally available but taxed (VAT) and poorly aggregated.<br/>
+              <strong>Premix:</strong> Fragmented retail purchase at 2× bulk price.
+            </div>
+          </div>
+          <div class="node">
+            <div class="flag loss">LOSS</div>
+            <div class="h">2. Day-old chicks</div>
+            <div class="sub">
+              <strong>Hatch rate:</strong> ~75% (vs 85%+ best practice).<br/>
+              <strong>Parent stock:</strong> Limited genetic quality; imported from SA.<br/>
+              <strong>Constraint:</strong> No modern hatchery with climate control. Temperature variance kills embryos.
+            </div>
+          </div>
+          <div class="node">
+            <div class="flag loss">LOSS</div>
+            <div class="h">3. Grow-out farms</div>
+            <div class="sub">
+              <strong>FCR:</strong> 2.0 (vs 1.7 best practice) — extra 300g feed per kg meat.<br/>
+              <strong>Mortality:</strong> 10–12% (vs 4–6%).<br/>
+              <strong>Scale:</strong> 86% smallholder/backyard; fragmented, no biosecurity.
+            </div>
+          </div>
+          <div class="node">
+            <div class="flag bind">BIND</div>
+            <div class="h">4. Processing</div>
+            <div class="sub">
+              <strong>Central Poultry:</strong> 49% market share, fully integrated. Only credible scale processor.<br/>
+              <strong>Gap:</strong> No export-certified slaughter line. Cannot meet Moz/DRC SPS requirements.<br/>
+              <strong>Need:</strong> Brownfield upgrade: HACCP, chilling, cutting, packaging.
+            </div>
+          </div>
+          <div class="node">
+            <div class="flag bind">BIND</div>
+            <div class="h">5. Cold chain</div>
+            <div class="sub">
+              <strong>Status:</strong> Near-zero refrigerated logistics for poultry.<br/>
+              <strong>Loss:</strong> Estimated 15–20% post-slaughter quality loss.<br/>
+              <strong>Need:</strong> Shared cold hubs at Lilongwe, Blantyre, Mchinji, Dedza border points.
+            </div>
+          </div>
+          <div class="node">
+            <div class="flag proj">MARKET</div>
+            <div class="h">6. Demand sinks</div>
+            <div class="sub">
+              <strong>Mozambique:</strong> 50kt deficit, imports from SA/Brazil. 800km to Maputo via Tete.<br/>
+              <strong>Angola:</strong> 258kt imports ($280M). Largest poultry importer in Africa.<br/>
+              <strong>DRC:</strong> 68kt demand, minimal production. Lubumbashi reachable via Zambia.
+            </div>
+          </div>
+        </div>
+
+        <!-- REGIONAL DEMAND BAR CHART -->
+        <div style="margin-top:18px">
+          <h2 style="font-size:14px">Regional poultry import demand (kt, 2024)</h2>
+          <div class="bar-container">
+            <div class="bar-row">
+              <div class="bar-label">Angola</div>
+              <div class="bar-track"><div class="bar-fill red" style="width:86%">258kt · $280M</div></div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">Mozambique</div>
+              <div class="bar-track"><div class="bar-fill amber" style="width:17%">50kt · $45M</div></div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">DRC</div>
+              <div class="bar-track"><div class="bar-fill amber" style="width:23%">68kt (demand)</div></div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">Lesotho</div>
+              <div class="bar-track"><div class="bar-fill green" style="width:8%">23kt</div></div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">Botswana</div>
+              <div class="bar-track"><div class="bar-fill green" style="width:7%">20kt</div></div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">Namibia</div>
+              <div class="bar-track"><div class="bar-fill green" style="width:4.5%">13kt</div></div>
+            </div>
+          </div>
+          <p class="small" style="color:var(--muted);margin-top:6px">
+            Total addressable regional deficit: ~430kt. Malawi's realistic capture target: 30–50kt by 2030 (Mozambique first, then DRC via Zambia transit).
+            Angola is aspirational — requires air/sea freight and institutional contracts; not a first-mover market.
+          </p>
+        </div>
+
+        <div class="callout warn">
+          <div class="t">Key insight: Feed + processing bind simultaneously</div>
+          <p class="small">
+            Unlike Zambia soya where aggregation was the single binding constraint, Malawi poultry has <strong>two co-binding constraints</strong>:
+            (1) feed cost volatility makes production margins razor-thin, and (2) processing/cold chain gaps prevent export even when production surplus exists.
+            Both must be addressed together — fixing one without the other does not unlock the corridor.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 4: 5 BRICK-LEVEL PROJECTS                            -->
+    <!-- ============================================================ -->
+    <div class="section" id="s3">
+      <div class="card">
+        <h2>5 brick-level projects — constraint → intervention → quantified outcome</h2>
+        <p>
+          Each project starts with a <strong>named, measured binding constraint</strong>, specifies a concrete intervention, and estimates the outcome.
+          Numbers are directional (~30% accuracy) — to be validated in field visits. Where the math doesn't work, we kill the project, not massage it.
+        </p>
+      </div>
+
+      <!-- PROJECT 1 -->
+      <div class="card" style="margin-top:14px">
+        <h2 style="font-size:15px">#1 Feed formulation hub linked to Zambia soy corridor <span class="pill warn">$15–25M · Foundation project</span></h2>
+
+        <div class="callout bad" style="margin-top:8px">
+          <div class="t">Binding constraint it solves</div>
+          <p class="small">
+            Feed = 60–70% of broiler production cost in Malawi. Malawi imports nearly 100% of soy meal — currently sourced from SA and global markets at ~$700/t landed in Lilongwe.
+            In 2024, soybean prices in Malawi surged <strong>48% between May and November</strong> due to weather and market distortions. Producers buying retail-grade feed pay a <strong>20–30% premium</strong> over what a scaled mill could achieve.
+            Without stable, affordable feed, no downstream investment (processing, contract farming, export) is viable — every other project's IRR depends on this one.
+          </p>
+        </div>
+
+        <p><strong>The intervention:</strong></p>
+        <p class="small">
+          Build a <strong>50,000 t/yr commercial feed mill</strong> in Lilongwe or Salima (near maize aggregation zones and Mchinji border crossing for Zambian soy meal).
+          Three supply legs: (a) Zambian soy meal at ~$560/t via Mchinji — linked directly to AFSTI Zambia Soya Project #3 (Malawi offtake contracts),
+          (b) local maize via aggregation contracts with ~5,000 smallholders at <$200/t,
+          (c) imported premix via bulk procurement (10× cheaper than current retail purchase by individual farmers).
+          Structure: Private-sector-led (Central Poultry or new entrant as anchor offtaker) with DFI working capital facility for 90-day inventory cycle.
+        </p>
+
+        <p><strong>Quantified target impact:</strong></p>
+        <div class="kpi" style="grid-template-columns:repeat(3,1fr)">
+          <div class="box">
+            <div class="label">Blended feed cost reduction</div>
+            <div class="value" style="color:var(--ok)">$660→$545/t</div>
+            <div class="note">-$115/t (−17%). Driven by: soy meal $700→$560/t (Zambia corridor), maize $220→$190/t (aggregation), premix $80→$55/t (bulk).</div>
+          </div>
+          <div class="box">
+            <div class="label">Margin impact per bird (2kg broiler)</div>
+            <div class="value" style="color:var(--ok)">+$0.20/bird</div>
+            <div class="note">FCR 1.85 × $115/t saving = ~$0.21 per bird. At 12M birds/yr across contracted growers = <strong>$2.5M/yr margin released</strong> back to producers.</div>
+          </div>
+          <div class="box">
+            <div class="label">Breakeven utilisation</div>
+            <div class="value">~58%</div>
+            <div class="note">Mill breaks even at 29,000 t/yr throughput. Central Poultry alone likely offtakes ~20,000 t/yr; remaining 30,000t from contracted growers + other processors.</div>
+          </div>
+        </div>
+
+        <div class="callout warn" style="margin-top:10px">
+          <div class="t">Kill condition</div>
+          <p class="small">If Zambian soy meal cannot be delivered to Mchinji at ≤$580/t (verify with truck quotes during field visit), or if Malawi imposes import duties on soy meal (currently 0% under COMESA), this project's economics collapse and every downstream project weakens.</p>
+        </div>
+      </div>
+
+      <!-- PROJECT 2 -->
+      <div class="card" style="margin-top:14px">
+        <h2 style="font-size:15px">#2 Export-certified processing line (brownfield) <span class="pill ok">$8–15M · The hard gate</span></h2>
+
+        <div class="callout bad" style="margin-top:8px">
+          <div class="t">Binding constraint it solves</div>
+          <p class="small">
+            <strong>Zero export-certified poultry processing exists in Malawi today.</strong> Central Poultry (49% market share) processes for domestic only — no HACCP certification, no mechanical chilling compliant with Mozambique SPS, no IQF packaging.
+            Malawi exported $10M of poultry in 2024, but this is almost entirely informal cross-border and low-value. The formal Mozambique market (50kt, $45M/yr) requires SPS compliance that no Malawian processor can currently meet.
+            This is a binary gate: without it, there is no export corridor regardless of how cheap the bird is.
+          </p>
+        </div>
+
+        <p><strong>The intervention:</strong></p>
+        <p class="small">
+          Brownfield upgrade of Central Poultry's Lilongwe facility (or comparable) — but critically, configured for <strong>dual-format output</strong> based on demand-side reality:
+          <br/><br/>
+          <strong>Line A (primary): Chilled portions for Mozambique formal retail.</strong> Kill floor → air chill (not water — required by Moz SPS) → <strong>automated cut-up line</strong> (thighs, drumsticks, wings, breasts separated) → tray pack / MAP packaging → chilled dispatch (0–4°C, 7-day shelf life). Capacity: 6,000 birds/day.
+          <br/><br/>
+          <strong>Line B (secondary): IQF frozen for informal + DRC.</strong> Same kill floor → mechanical chill → cut-up → <strong>IQF tunnel freezer</strong> (-35°C blast, -18°C storage) → bulk carton packaging (10kg). Capacity: 4,000 birds/day on second shift.
+          <br/><br/>
+          <strong>Offal line (both):</strong> Feet, gizzards, livers, hearts separated, cleaned, packaged separately — these are revenue, not waste (~$0.15–0.25/bird, or ~$540K–900K/yr at full throughput).
+          <br/><br/>
+          Total: <strong>10,000 birds/day across both lines</strong>. HACCP-certified. Mozambique SPS + Malawi Bureau of Standards dual recognition (AGRA Delivery Lab already scoping this).
+          DFI partial risk guarantee covering first 3 years of export volume shortfall risk. Estimated capex: $10–17M (higher than original $8–15M because cut-up + IQF adds $2–3M).
+        </p>
+
+        <p><strong>Quantified target impact:</strong></p>
+        <div class="kpi" style="grid-template-columns:repeat(3,1fr)">
+          <div class="box">
+            <div class="label">Export capacity created</div>
+            <div class="value" style="color:var(--ok)">~7,200 t/yr</div>
+            <div class="note">10,000 birds/day × 2kg avg × 300 operating days × 80% utilization × 75% yield = ~7,200t of export-grade product per year.</div>
+          </div>
+          <div class="box">
+            <div class="label">Year 3 export revenue target</div>
+            <div class="value" style="color:var(--ok)">$6.8M/yr</div>
+            <div class="note">7,200t × $945/t landed Maputo = $6.8M. This represents ~14% of Mozambique's 50kt import market — a realistic capture target.</div>
+          </div>
+          <div class="box">
+            <div class="label">Margin vs Brazil (per tonne)</div>
+            <div class="value" style="color:var(--ok)">+$155/t</div>
+            <div class="note">Malawi reformed: $945/t vs Brazil frozen CIF Maputo: ~$1,100/t. <strong>Plus</strong> freshness premium (chilled 5-day vs frozen 50-day) worth est. $50–80/t to retailers.</div>
+          </div>
+        </div>
+
+        <div class="callout warn" style="margin-top:10px">
+          <div class="t">Kill condition</div>
+          <p class="small">If Central Poultry (or Kapani/Go Fresh) will not co-invest in the upgrade — i.e., no anchor processor commitment — there is no counterparty and DFI capital has nowhere to go. This must be confirmed in the first field visit call.</p>
+        </div>
+      </div>
+
+      <!-- PROJECT 3 -->
+      <div class="card" style="margin-top:14px">
+        <h2 style="font-size:15px">#3 Climate-controlled hatchery <span class="pill warn">$5–10M · Volume bottleneck breaker</span></h2>
+
+        <div class="callout bad" style="margin-top:8px">
+          <div class="t">Binding constraint it solves</div>
+          <p class="small">
+            Malawi's current hatch rate is ~<strong>75%</strong> (vs 85–90% international best practice). The gap is not genetics — it is <strong>temperature and humidity control</strong>.
+            Existing hatcheries use manual systems; a 2°C temperature deviation during incubation can kill 10–15% of embryos. This means:
+            for every 1M eggs set, Malawi gets ~750k DOC vs ~850k with proper equipment = <strong>100,000 chicks lost per million eggs</strong>.
+            At a DOC cost of ~$0.55/chick, producers overpay by ~$0.08/chick due to the low hatch rate being amortised into higher DOC prices.
+            Across Malawi's ~40M broiler DOC/yr, that is <strong>~$3.2M/yr in unnecessary cost</strong>.
+          </p>
+        </div>
+
+        <p><strong>The intervention:</strong></p>
+        <p class="small">
+          Greenfield or major upgrade of one hatchery: <strong>climate-controlled setter + hatcher with capacity of 500,000 DOC/month (6M/yr)</strong>.
+          Automated temperature (±0.1°C), humidity (±2%), turning, and ventilation control. Parent stock management system with biosecurity perimeter.
+          Co-located with or contracted to Central Poultry. Ross 308 or Cobb 500 parent stock (industry standard).
+          Revenue model: sell DOC to contracted growers (#4) at $0.45/chick (vs current ~$0.55) while maintaining 25% gross margin through efficiency.
+        </p>
+
+        <p><strong>Quantified target impact:</strong></p>
+        <div class="kpi" style="grid-template-columns:repeat(3,1fr)">
+          <div class="box">
+            <div class="label">Hatch rate improvement</div>
+            <div class="value" style="color:var(--ok)">75%→85%</div>
+            <div class="note">+10pp improvement on 7M eggs set/yr = <strong>700,000 additional chicks/yr</strong>. At 2kg live weight = 1,400t additional bird supply for the system.</div>
+          </div>
+          <div class="box">
+            <div class="label">DOC cost reduction to growers</div>
+            <div class="value" style="color:var(--ok)">$0.55→$0.45</div>
+            <div class="note">-$0.10/chick × 6M DOC/yr = <strong>$600K/yr saved by growers</strong>. This flows directly into contract farming margins (#4) making out-grower economics viable.</div>
+          </div>
+          <div class="box">
+            <div class="label">Hatchery unit economics</div>
+            <div class="value">~30% gross margin</div>
+            <div class="note">6M DOC × $0.45 = $2.7M revenue. COGS (parent stock, energy, labour) ~$1.9M. Gross margin ~$800K/yr. Payback: 7–12 years with DFI concessional tranche.</div>
+          </div>
+        </div>
+
+        <div class="callout warn" style="margin-top:10px">
+          <div class="t">Kill condition</div>
+          <p class="small">If parent stock genetics cannot be reliably imported from SA (Astral's Ross 308 lines) due to HPAI trade restrictions, the hatchery cannot source its primary input. Field visit must confirm SA→Malawi parent stock supply chain status and any HPAI-related bans.</p>
+        </div>
+      </div>
+
+      <!-- PROJECT 4 -->
+      <div class="card" style="margin-top:14px">
+        <h2 style="font-size:15px">#4 Structured contract farming platform <span class="pill ok">$3–8M (mostly WC) · The volume engine</span></h2>
+
+        <div class="callout bad" style="margin-top:8px">
+          <div class="t">Binding constraint it solves</div>
+          <p class="small">
+            <strong>86% of Malawi broiler production is backyard/informal</strong>. Average flock: 50–200 birds, no biosecurity, hand-mixed feed, no veterinary protocols.
+            Result: <strong>FCR of 2.0 (vs 1.7–1.75 contracted)</strong> and <strong>mortality of 10–12% (vs 4–6% contracted)</strong>.
+            The math: an FCR gap of 0.25 means an extra 250g of feed per kg of meat produced. At $545/t reformed feed cost, that is <strong>$0.14/kg unnecessary cost per bird</strong>.
+            Across 40,000t of current production, this FCR penalty alone costs the system <strong>~$5.5M/yr in wasted feed</strong>.
+            Additionally, 10% mortality vs 5% on 40M birds = <strong>2M birds lost = 4,000t of potential output destroyed before slaughter</strong>.
+          </p>
+        </div>
+
+        <p><strong>The intervention:</strong></p>
+        <p class="small">
+          Structured out-grower scheme connecting <strong>3,000 growers</strong> (medium-scale, 500–2,000 birds/cycle) to the processor via:
+          (a) standardised input package (DOC from #3 at $0.45 + feed from #1 at $545/t + vaccines),
+          (b) biosecurity protocols (concrete floors, netting, foot baths, all-in-all-out cycles),
+          (c) performance-linked pricing: grower paid per kg of live weight delivered at target FCR, with bonus for <5% mortality,
+          (d) digital monitoring: simple SMS/USSD weight reporting at Day 14, 28, 35 — flags underperformers for vet visit.
+          Processor provides guaranteed offtake; grower provides labour + housing (existing or upgraded at ~$500/house).
+          Working capital: 42-day cycle funded by commercial bank with DFI first-loss guarantee covering 20% of portfolio.
+        </p>
+
+        <p><strong>Quantified target impact:</strong></p>
+        <div class="kpi" style="grid-template-columns:repeat(4,1fr)">
+          <div class="box">
+            <div class="label">Bird volume created</div>
+            <div class="value" style="color:var(--ok)">24,000 t/yr</div>
+            <div class="note">3,000 growers × 4 cycles/yr × 1,000 birds avg × 2kg = 24,000t live weight. This is the raw supply pipeline for the export line (#2).</div>
+          </div>
+          <div class="box">
+            <div class="label">Feed saved through FCR improvement</div>
+            <div class="value" style="color:var(--ok)">6,000 t/yr</div>
+            <div class="note">FCR 2.0→1.75 = 0.25kg less feed per kg meat × 24,000t = 6,000t of feed no longer wasted. At $545/t = <strong>$3.3M/yr saved</strong>.</div>
+          </div>
+          <div class="box">
+            <div class="label">Birds saved through mortality reduction</div>
+            <div class="value" style="color:var(--ok)">720,000 birds/yr</div>
+            <div class="note">Mortality 12%→6% = 6pp improvement × 12M birds/yr = 720,000 birds saved = <strong>1,440t additional output worth ~$1.4M/yr</strong>.</div>
+          </div>
+          <div class="box">
+            <div class="label">Jobs / livelihoods</div>
+            <div class="value" style="color:var(--ok)">~15,000 direct</div>
+            <div class="note">3,000 grower households + ~12,000 upstream (feed aggregation, transport, vet services). AGRA impact model estimates ~83,000 total jobs if full value chain activated.</div>
+          </div>
+        </div>
+
+        <div class="callout warn" style="margin-top:10px">
+          <div class="t">Kill condition</div>
+          <p class="small">If grower default rate exceeds 15% in the first two cycles (birds sold side-market, input diversion), the working capital facility becomes un-bankable and the platform collapses. Mitigant: performance bonds, input delivery in-kind not cash, and digital monitoring. But if this fails in pilot (first 500 growers), do not scale.</p>
+        </div>
+      </div>
+
+      <!-- PROJECT 5 -->
+      <div class="card" style="margin-top:14px">
+        <h2 style="font-size:15px">#5 Refrigerated corridor: Lilongwe → Maputo via Tete <span class="pill ok">$10–20M · The delivery mechanism</span></h2>
+
+        <div class="callout bad" style="margin-top:8px">
+          <div class="t">Binding constraint it solves</div>
+          <p class="small">
+            <strong>Near-zero refrigerated logistics capacity for poultry in Malawi.</strong> Post-slaughter quality loss is estimated at <strong>15–20%</strong> — product degrades before it can reach consumers, let alone cross a border.
+            The Lilongwe→Blantyre→Tete→Beira/Maputo route is ~800–1,200km. At ambient temperature (30°C+), chicken has a shelf life of <strong>4–6 hours</strong> without refrigeration.
+            No cold chain = no export. Period. Even if the bird is cheap and the processing is certified, you cannot deliver a perishable product across 800km without temperature control.
+            Current border dwell at Dedza/Mwanza (Malawi–Mozambique) averages <strong>2–3 days</strong> for general cargo; perishable goods lose all value in this time.
+          </p>
+        </div>
+
+        <p><strong>The intervention:</strong></p>
+        <p class="small">
+          Three components: (a) <strong>3 shared cold storage hubs</strong> (500t capacity each) at Lilongwe (production zone), Blantyre (aggregation), and Dedza/Mwanza (border staging).
+          (b) <strong>Fleet of 25 refrigerated trucks</strong> (15t capacity, -18°C frozen / +2°C chilled) on the Lilongwe→Blantyre→Tete→Maputo corridor.
+          (c) <strong>SPS pre-clearance protocol</strong> with Mozambique: veterinary certificates pre-validated, e-phyto certificates, bonded transit through Tete province.
+          Structured as PPP or concession: private logistics operator (e.g., Bolloré/AGL, Imperial Logistics) invests in fleet with public sector funding for cold hubs and border systems.
+          Revenue model: handling + storage fees at hubs ($15–20/t), plus per-km transport tariff ($0.12–0.15/t-km refrigerated).
+        </p>
+
+        <p><strong>Quantified target impact:</strong></p>
+        <div class="kpi" style="grid-template-columns:repeat(3,1fr)">
+          <div class="box">
+            <div class="label">Post-slaughter loss reduction</div>
+            <div class="value" style="color:var(--ok)">17.5%→5%</div>
+            <div class="note">12.5pp improvement on 30,000t of throughput = <strong>3,750t of product saved from waste = ~$3.5M/yr</strong> in recovered value.</div>
+          </div>
+          <div class="box">
+            <div class="label">Corridor throughput capacity</div>
+            <div class="value" style="color:var(--ok)">~4,500 t/month</div>
+            <div class="note">25 trucks × 15t × 12 round-trips/month = 4,500t/month maximum. Year 1 utilisation target: 30% (~1,350t/month). Breakeven at ~40% utilisation.</div>
+          </div>
+          <div class="box">
+            <div class="label">Border dwell time target</div>
+            <div class="value" style="color:var(--ok)">3 days→8 hrs</div>
+            <div class="note">Pre-clearance + perishable priority lane. Each day of border delay costs ~$50–80/t in generator fuel, driver time, and product degradation. Saving: ~$100–200/t per shipment.</div>
+          </div>
+        </div>
+
+        <div class="callout warn" style="margin-top:10px">
+          <div class="t">Kill condition</div>
+          <p class="small">If Mozambique border authorities will not implement a perishable goods fast-track (even informally), refrigerated trucks sitting for 3 days at Dedza burns $1,200–2,000/shipment in costs and product loss. This must be validated politically — is there a champion in Moz customs willing to pilot? If not, the route may need to shift to the Nacala corridor (Malawi→Nampula direct) which has different border dynamics.</p>
+        </div>
+      </div>
+
+      <!-- SEQUENCING + ABANDON -->
+      <div class="card" style="margin-top:14px">
+        <h2 style="font-size:15px">Sequencing & total economics</h2>
+        <div class="two" style="margin-top:8px">
+          <div>
+            <p class="small"><strong>Dependency chain (you cannot skip steps):</strong></p>
+            <p class="small">
+              <span class="mono" style="color:var(--warn)">#1 Feed hub</span> must be operational before #4 can offer growers a viable margin.<br/>
+              <span class="mono" style="color:var(--warn)">#3 Hatchery</span> must produce affordable DOC before #4 can scale beyond Central Poultry's own flock.<br/>
+              <span class="mono" style="color:var(--ok)">#4 Contract farming</span> must reach ~3,000 growers before #2 has enough birds for a dedicated export line.<br/>
+              <span class="mono" style="color:var(--ok)">#2 Processing</span> must be HACCP-certified before #5 has any product to transport.<br/>
+              <span class="mono">#5 Cold chain</span> is the final link — no point investing before product exists.
+            </p>
+            <p class="small"><strong>Timeline:</strong> #1 + #3 in Year 1 (parallel). #4 pilot in Year 1, scale Year 2. #2 construction Year 1–2, operational Year 2. #5 procurement Year 2, operational Year 3.</p>
+          </div>
+          <div>
+            <p class="small"><strong>Total capital stack:</strong></p>
+            <div class="kpi" style="grid-template-columns:1fr 1fr">
+              <div class="box">
+                <div class="label">Total estimated capex</div>
+                <div class="value">$41–78M</div>
+                <div class="note">Private equity: 40–50%. DFI concessional: 30–35%. Public/grant (cold hubs, border systems): 15–25%.</div>
+              </div>
+              <div class="box">
+                <div class="label">Steady-state annual value created</div>
+                <div class="value" style="color:var(--ok)">~$17M/yr</div>
+                <div class="note">Feed savings: $2.5M + FCR savings: $3.3M + mortality recovery: $1.4M + export revenue: $6.8M + waste reduction: $3.5M. Conservative — assumes Year 3 ramp.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout bad" style="margin-top:10px">
+          <div class="t">When to abandon the entire VC thesis (explicit)</div>
+          <p class="small">
+            <strong>Abandon if any two of the following are true:</strong>
+            (a) Zambia soy meal cannot be delivered at ≤$580/t to Lilongwe — kills feed economics and the $2.5M/yr margin improvement evaporates;
+            (b) Central Poultry will not co-invest in export certification — no anchor processor means no counterparty for any DFI;
+            (c) Malawi government signals poultry export restrictions during domestic price spikes — this is the "electoral insurance" pattern seen in Nigeria/Mali for grains;
+            (d) HPAI outbreak closes SADC borders for &gt;6 months — wipes out export revenue and strands cold chain investment;
+            (e) Mozambique SPS authority will not recognise Malawi Bureau of Standards certification — hard regulatory gate that cannot be worked around.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 5: PRIVATE PLAYERS + WHY THEY INVEST                  -->
+    <!-- ============================================================ -->
+    <div class="section" id="s4">
+      <div class="card">
+        <h2>Private players (5 named) — why they would invest</h2>
+        <p>
+          These are not "stakeholders"; they are the likely <strong>operators</strong>. Each project below is written so it is rational for them to deploy capital.
+        </p>
+
+        <table class="table">
+          <thead><tr><th>Company</th><th>Where they play</th><th>Why they invest (hypothesis)</th><th>Best-fit projects</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Central Poultry 2000 Ltd</strong></td>
+              <td>Malawi's largest fully integrated broiler producer: parent stock, feed mills, grow-out, processing, distribution. ~49% market share.</td>
+              <td>
+                Already vertically integrated; upside comes from (i) export revenue at higher margins than domestic, (ii) utilising existing processing capacity on a second shift for export,
+                (iii) de-risking feed cost via structured Zambia soy supply. Export certification upgrades their entire operation, not just the export line.
+              </td>
+              <td class="mono">#1 feed · #2 processing · #3 hatchery · #4 contract farming</td>
+            </tr>
+            <tr>
+              <td><strong>Kapani / Go Fresh Ltd</strong></td>
+              <td>Second-tier processor (est. 1998); combined ~9% market share post-merger. Meat processing and abattoir in Kanengo, Lilongwe.</td>
+              <td>
+                Growth-constrained in domestic market by Central Poultry's dominance. Export markets offer a path to scale without head-to-head domestic competition.
+                Would benefit from shared cold chain infrastructure (#5) that they cannot justify alone.
+              </td>
+              <td class="mono">#2 processing · #4 contract farming · #5 cold chain</td>
+            </tr>
+            <tr>
+              <td><strong>ETG / Parrogate (via Zambia soya linkage)</strong></td>
+              <td>Industrial soybean crushers in Zambia (Mwembeshi expansion). Already in AFSTI Zambia Soya investment case as anchor processor.</td>
+              <td>
+                Malawi feed mills are a natural offtake for Zambian soy meal — the same logic as Project #3 in the Zambia Soya VC.
+                ETG/Parrogate benefit from guaranteed regional demand for their meal output; Malawi feed mills benefit from stable, sub-seaborne pricing.
+                This is the cross-corridor linkage that makes both investment cases stronger.
+              </td>
+              <td class="mono">#1 feed (as soy meal supplier)</td>
+            </tr>
+            <tr>
+              <td><strong>Astral Foods / RCL Foods (SA integrators)</strong></td>
+              <td>SA's largest poultry producers (Astral: 18% SA market; RCL: 15%). Both have regional ambitions but are constrained by SA's high cost base.</td>
+              <td>
+                Malawi offers a lower-cost production base for regional SADC markets that SA cannot serve profitably.
+                An equity stake or JV with a Malawian processor gives them regional export volume without the SA cost structure.
+                They bring technical expertise (hatchery, biosecurity, processing) that Malawi lacks.
+              </td>
+              <td class="mono">#2 processing · #3 hatchery · #5 cold chain</td>
+            </tr>
+            <tr>
+              <td><strong>Ecobank / NBS Bank Malawi (+ DFI guarantors)</strong></td>
+              <td>Commercial banks for working capital; DFIs (IFC, BII/CDC) for partial risk guarantees and concessional tranches.</td>
+              <td>
+                Poultry is a 42-day cash cycle — among the fastest-return agricultural investments. Working capital facilities for contract farmers + processors have clear collateral (birds, feed, offtake contracts).
+                DFI first-loss guarantees de-risk the portfolio for commercial banks to lend at scale.
+              </td>
+              <td class="mono">#1 feed (WC) · #4 contract farming (WC) · #5 cold chain (term finance)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout warn">
+          <div class="t">Important nuance — the AGRA Delivery Lab is real</div>
+          <p class="small">
+            In November 2025, AGRA and the Malawi Ministry of Agriculture co-hosted the <strong>National Poultry Delivery Lab</strong> in Lilongwe with the Poultry Industry Association of Malawi (PIAM).
+            This is not a theoretical stakeholder mapping — there is an active government-backed reform process designing the policy roadmap for exactly these interventions (feed cost reform, export procedures, cold chain).
+            AGRA is already at the table. The investment cases we develop must align with and amplify this momentum.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 6: SITE-VISIT TESTS                                   -->
+    <!-- ============================================================ -->
+    <div class="section" id="s5">
+      <div class="card">
+        <h2>Site-visit tests: questions that decide investability</h2>
+        <p>These are written to validate (or kill) the thesis quickly. Each question maps to a specific assumption that, if wrong, changes the investment case.</p>
+
+        <div class="two" style="margin-top:10px">
+          <div class="card" style="margin:0">
+            <h2 style="font-size:14px">A. Central Poultry & processors (Lilongwe)</h2>
+            <p class="small">
+              1) What is your current slaughter capacity (birds/day) and utilisation rate? What would an export shift add?<br/>
+              2) What would HACCP + SPS export certification cost and how long to achieve? Have you explored this before?<br/>
+              3) What is your current feed cost per kg of live bird? How much do you source from Zambia vs SA vs global?<br/>
+              4) If soy meal were guaranteed at ≤MWK 560/kg from Zambia, would you commit to 3-year offtake?<br/>
+              5) Would you co-invest in an export processing line if a DFI covered 30% of capex as concessional debt?<br/>
+              6) What is your current mortality rate and FCR across contracted vs non-contracted growers?
+            </p>
+          </div>
+
+          <div class="card" style="margin:0">
+            <h2 style="font-size:14px">B. Mozambique demand sink (Maputo, Beira, Nampula)</h2>
+            <p class="small">
+              1) Current annual poultry import volume and origin split (SA vs Brazil vs other).<br/>
+              2) Landed cost breakdown for Brazilian frozen chicken: CIF + duty + inland freight + margin.<br/>
+              3) What "quality spec" do formal retailers and institutional buyers require? (HACCP cert, cold chain continuity, labelling, cut specifications)<br/>
+              4) Would buyers accept a switch from frozen Brazilian to chilled Malawian product at the same price?<br/>
+              5) What payment terms are feasible? (LC, prepay, 30-day open account)<br/>
+              6) If lead time falls from 45–60 days (seaborne) to 3–5 days (road from Malawi), what premium would buyers pay?
+            </p>
+          </div>
+        </div>
+
+        <div class="two" style="margin-top:14px">
+          <div class="card" style="margin:0">
+            <h2 style="font-size:14px">C. Feed supply & Zambia soy linkage</h2>
+            <p class="small">
+              1) What is the actual delivered cost of Zambian soy meal at Mchinji border today? (Get truck quotes, not estimates)<br/>
+              2) How does Mchinji border perform: dwell time, SPS inspection frequency, informal charges?<br/>
+              3) Are there existing Zambia→Malawi soy meal flows? Who are the traders? At what volumes?<br/>
+              4) What would a 50,000 t/yr feed mill require in terms of site, power, water, and effluent? (Specific location options)<br/>
+              5) Can maize be procured locally at <$200/t through aggregation? What's the seasonal price range?
+            </p>
+          </div>
+
+          <div class="card" style="margin:0">
+            <h2 style="font-size:14px">D. Policy & political economy</h2>
+            <p class="small">
+              1) Is there any precedent or risk of poultry export restrictions in Malawi? (Maize has been restricted — is poultry different politically?)<br/>
+              2) What tax reform is being discussed at the AGRA/PIAM Delivery Lab? (Specifically: VAT on feed inputs, export procedures, SPS harmonisation)<br/>
+              3) What is the Malawi Bureau of Standards capacity for export certification? Timeline to certify a processing plant?<br/>
+              4) Are there any SADC trade disputes or non-tariff barriers between Malawi and Mozambique on animal products?<br/>
+              5) Who in government is the champion for poultry export — and what is their tenure risk?
+            </p>
+          </div>
+        </div>
+
+        <div class="two" style="margin-top:14px">
+          <div class="card" style="margin:0">
+            <h2 style="font-size:14px">E. Finance & DFI appetite</h2>
+            <p class="small">
+              1) Has IFC, BII/CDC, or FMO looked at Malawi poultry before? What was the outcome?<br/>
+              2) What lending rates do commercial banks (NBS, Ecobank) offer for agricultural working capital in Malawi?<br/>
+              3) Is warehouse receipt finance available for feed stock (maize, soy meal)?<br/>
+              4) What partial risk guarantee instruments are available for Malawi (MIGA, ATI, GuarantCo)?<br/>
+              5) What is the minimum deal size for a DFI to engage? (We need $8–25M individual projects to be bankable)
+            </p>
+          </div>
+
+          <div class="card" style="margin:0">
+            <h2 style="font-size:14px">F. Cold chain & logistics operators</h2>
+            <p class="small">
+              1) Who currently operates refrigerated transport in Malawi? At what scale? (Get names, fleet sizes, routes)<br/>
+              2) What is the cost per ton-km for refrigerated vs ambient trucking on the Lilongwe–Blantyre–Tete corridor?<br/>
+              3) Are there existing cold storage facilities at Dedza or Mchinji that could be repurposed?<br/>
+              4) What is the current Malawi–Mozambique border transit time for perishable goods? What causes delays?<br/>
+              5) Would a logistics operator commit to a 5-year contract at guaranteed volumes? What minimum volume?
+            </p>
+          </div>
+        </div>
+
+        <div class="footer">
+          <div><strong>Sources referenced:</strong> AGRA/PIAM National Poultry Delivery Lab (Nov 2025); Poultry World (Nov/Dec 2025); USDA FAS Angola Poultry Annual (2025);
+          AFSTI Baseline & Analytics Report (Jan 2026); AFSTI Limpopo Livestock Analysis (Jan 2026); SteerCo Additional Materials (Feb 2026); Investment Cases draft (Mar 2026).
+          Malawi poultry data: FAOSTAT, IndexBox, The Times Group Malawi. Competition benchmark: Central Poultry Ltd, CFTC Malawi.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+<script>
+  function show(i){
+    const tabs = document.querySelectorAll('.tab');
+    const secs = document.querySelectorAll('.section');
+    tabs.forEach((t,idx)=>t.classList.toggle('active', idx===i));
+    secs.forEach((s,idx)=>s.classList.toggle('active', idx===i));
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+</script>
+</body>
+</html>
